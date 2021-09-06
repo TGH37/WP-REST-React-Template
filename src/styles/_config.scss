@@ -12,11 +12,17 @@ $breakpoint-desktop: 1024px;
 $breakpoint-hd: 1998px;
 
 // Layout
-$sidebar-width: 10%;
-$nav-max-width-closed: 100px;
+$sidebar-width: 10vw;
+$nav-width-closed: 5vw;
 
-$body-margin-top: 2rem;
-$body-margin-bottom: 2rem;
-$body-margin-left: 6rem;
-$body-margin-right: 13rem;
-$body-margin: $body-margin-top $body-margin-right $body-margin-bottom $body-margin-left;
+$body-dt-margin-top: 2rem;
+$body-dt-margin-bottom: 2rem;
+$body-dt-margin-left: $nav-width-closed + 2vw;
+$body-dt-margin-right: $sidebar-width;
+$body-dt-margin: $body-dt-margin-top $body-dt-margin-right $body-dt-margin-bottom $body-dt-margin-left;
+
+$body-mob-margin-top: 2rem;
+$body-mob-margin-bottom: 2rem;
+$body-mob-margin-left: 60px;
+$body-mob-margin-right: 1rem;
+$body-mob-margin: $body-mob-margin-top $body-mob-margin-right $body-mob-margin-bottom $body-mob-margin-left;

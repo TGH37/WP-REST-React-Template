@@ -14,8 +14,8 @@
         bottom: 0;
         height: 100vh;
         border-left: 1px solid black;
-        padding: 1rem;
-        width: 10%;
+        padding: 1rem 0;
+        width: $sidebar-width;
         text-align: center;
         
     };
@@ -37,7 +37,7 @@
 
 .mainPageContent {
     z-index: 2;
-    margin: $body-margin;
     @media (min-width: $breakpoint-desktop ) {
+        margin: $body-dt-margin;
     };
 }

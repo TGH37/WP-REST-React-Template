@@ -1,0 +1,36 @@
+@import 'config';
+@import 'utilities';
+
+.searchFormContainer,
+.searchFormInput
+{
+    width: 100%;
+}
+
+.searchFormContainer {
+    $border-settings: 1px solid black;
+    border-top: $border-settings;
+    border-bottom: $border-settings;
+    display: flex;
+    align-items: center;
+}
+
+
+.searchFormInput {
+
+    padding: 1rem;
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+    color: black;
+    text-transform: uppercase;
+    font-weight: bold;
+    &::placeholder {
+        font-weight: normal;
+        color: black;
+    }
+
+    &:focus, &:active, &:focus-visible {
+        outline: none;
+    }
+}

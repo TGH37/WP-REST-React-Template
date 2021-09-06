@@ -1,38 +1,15 @@
 @import 'config';
 @import 'utilities';
+@import 'form';
 
 .footerContainer {
-    margin-left: $body-margin-left;
-    margin-right: $body-margin-right;
-}
-
-.searchFormContainer,
-.searchFormInput
-{
-    width: 100%;
-}
-
-.searchFormContainer {
-    $border-settings: 1px solid black;
-    border-top: $border-settings;
-    border-bottom: $border-settings;
-    display: flex;
-    align-items: center;
-}
-
-
-.searchFormInput {
-
-    padding: 1rem;
-    border: none;
-
-    font-size: 1rem;
-    color: black;
-    text-transform: uppercase;
-    font-weight: bold;
-    &::placeholder {
-        color: black;
-    }
+    margin-left: $body-mob-margin-left;
+    margin-right: $body-mob-margin-right;
+    
+    @media (min-width: $breakpoint-desktop ) {
+        margin-left: $body-dt-margin-left;
+        margin-right: $body-dt-margin-right;
+    };
 }
 
 .footerFlexSectionContainer {

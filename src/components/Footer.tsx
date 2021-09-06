@@ -1,8 +1,7 @@
 import React from 'react';
 import styles from 'src/styles/layout.module.scss';
 import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import SearchBar from './SearchBar';
 
 interface Props {};
 
@@ -12,10 +11,7 @@ function Footer(props: Props) {
 
     return (
         <footer className={styles.footerContainer}>
-            <form action="submit" role="search" className={styles.searchFormContainer}>
-                <FontAwesomeIcon icon={faSearch} />
-                <input type="text" placeholder="Search" className={styles.searchFormInput}/>
-            </form>
+            <SearchBar />
             <div className={`${styles.footerFlexSectionContainer}`}>
                 <div className={`${styles.footerFlexSection} ${styles.footerAddress}`}>
                     <p>HEAD OFFICE</p>
