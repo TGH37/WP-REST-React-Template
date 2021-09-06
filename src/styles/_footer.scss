@@ -1,0 +1,69 @@
+@import 'config';
+@import 'utilities';
+
+.footerContainer {
+    margin-left: $body-margin-left;
+    margin-right: $body-margin-right;
+}
+
+.searchFormContainer,
+.searchFormInput
+{
+    width: 100%;
+}
+
+.searchFormContainer {
+    $border-settings: 1px solid black;
+    border-top: $border-settings;
+    border-bottom: $border-settings;
+    display: flex;
+    align-items: center;
+}
+
+
+.searchFormInput {
+
+    padding: 1rem;
+    border: none;
+
+    font-size: 1rem;
+    color: black;
+    text-transform: uppercase;
+    font-weight: bold;
+    &::placeholder {
+        color: black;
+    }
+}
+
+.footerFlexSectionContainer {
+    display: flex;
+    flex-direction: column;
+
+    @media (min-width: $breakpoint-desktop ) {
+        flex-direction: row;
+        justify-content: space-evenly;
+    };
+}
+
+.footerFlexSection {
+    display: flex;
+    flex-direction: column;
+}
+
+.footerAddress {
+
+    & p {
+        margin: 0.6rem 0;
+    }
+}
+
+.footerLegalNav {
+    & a {
+        font-weight: bold;
+        margin: 0.6rem 0;
+    }
+}
+
+.footerDisclaimer {
+    
+}

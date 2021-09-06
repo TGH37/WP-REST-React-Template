@@ -8,7 +8,12 @@ function Homepage(props: Props) {
 
     return (
         <>
-            <Layout />
+            {/* <Layout /> */}
+            <Layout >
+                <div>hi</div>
+            </Layout>
+
+            
         </>
     )
 }

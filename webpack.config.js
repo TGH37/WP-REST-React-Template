@@ -21,13 +21,14 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        // test: /\.ts|tsx|js|jsx?$/,
+        test: /\.js|jsx?$/,
         exclude: /node_modules/,
         loader: require.resolve("babel-loader"),
       },
       {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
+        test: /\.tsx|ts?$/,
+        use: ['babel-loader', 'ts-loader'],
         exclude: /node_modules/,
       },
       // {

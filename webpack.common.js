@@ -18,17 +18,17 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?$/,
+        test: /\.jsx|js?$/,
         exclude: /node_modules/,
         loader: require.resolve("babel-loader"),
       },
       {
-        test: /\.tsx?$/,
-        use: 'ts-loader',
+        test: /\.tsx|ts?$/,
+        use: ['babel-loader','ts-loader'],
         exclude: /node_modules/,
       },
       {
-        test: /\.png|svg|jpg|gif$/,
+        test: /\.png|jpg|gif$/,
         use: {
           loader: "file-loader",
           options: {
@@ -36,6 +36,10 @@ module.exports = {
             outputPath: "imgs"
           }
         },
+      },
+      {
+        test: /\.svg$/,
+        use: ["@svgr/webpack","file-loader"],
       },
       {
         test: /\.html$/,

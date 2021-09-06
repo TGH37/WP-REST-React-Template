@@ -1,12 +1,29 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import 'src/styles/global.scss'
-import styles from 'src/styles/foo.module.scss';
-import Homepage from './pages/index'
+import 'src/styles/global.scss';
+import Homepage from './pages/index';
+import { BrowserRouter } from 'react-router-dom'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+import { faSearch, faCheck } from '@fortawesome/free-solid-svg-icons'
 
-const App = () => (
-     
-    <Homepage />
-);
+import BreakpointProvider from './contexts/MediaBreakpointCtx';
 
-export default App
+library.add(fab, faSearch, faCheck)
+
+const App = () => {
+    const queries = {
+        xs: '(min-width: 420px)',
+        sm: '(min-width: 768px)',
+        md: '(min-width: 1024px)',
+        lg: '(min-width: 1998px)',
+      };
+    return(
+        <BrowserRouter>
+            <BreakpointProvider queries={queries} >
+                <Homepage />
+            </BreakpointProvider>
+        </BrowserRouter>
+    );
+};
+
+export default App;

@@ -1,3 +1,43 @@
 @import 'config';
 @import 'utilities';
 @import 'navbar';
+@import 'footer';
+
+.staticSidebar {
+    @media (min-width: $breakpoint-tablet ) {
+        position:fixed;
+        display: inline-flex;
+        margin: 0;
+        flex-direction: column;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        height: 100vh;
+        border-left: 1px solid black;
+        padding: 1rem;
+        width: 10%;
+        text-align: center;
+        
+    };
+}
+
+.mobileHeader {
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 2rem 0;
+    border-bottom: 1px solid black;
+    display: inline-flex;
+    width: 100%;
+    z-index: -1;
+    & :first-child{
+        padding-left: 4rem;
+    }
+}
+
+.mainPageContent {
+    z-index: 2;
+    margin: $body-margin;
+    @media (min-width: $breakpoint-desktop ) {
+    };
+}

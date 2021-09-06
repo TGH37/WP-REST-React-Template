@@ -4,3 +4,19 @@ $color-secondary: #FF7B00;
 // $color-tertiary: #FF7B00;
 
 $color-background: #FFFFFF;
+
+// device breakpoints
+$breakpoint-min: 420px;
+$breakpoint-tablet: 768px;
+$breakpoint-desktop: 1024px;
+$breakpoint-hd: 1998px;
+
+// Layout
+$sidebar-width: 10%;
+$nav-max-width-closed: 100px;
+
+$body-margin-top: 2rem;
+$body-margin-bottom: 2rem;
+$body-margin-left: 6rem;
+$body-margin-right: 13rem;
+$body-margin: $body-margin-top $body-margin-right $body-margin-bottom $body-margin-left;
