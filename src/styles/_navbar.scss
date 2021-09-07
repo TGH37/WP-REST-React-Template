@@ -4,13 +4,11 @@
 .navContainer {
     position: fixed;
     height: 100vh;
-    // background-color:  $color-secondary;
+    max-height: 100vh;
     background-color: adjust-color($color: $color-secondary, $alpha: -0.05) ;
     min-width: 50px;
-    // max-width: $nav-max-width-closed;
     width: $nav-width-closed;
     display: flex;
-    // flex-direction: column;
     justify-content: space-between;
     align-items: center;
     transition: width 0.5s;
@@ -21,12 +19,13 @@
 }
 
 .staticItemsContainer {
-    position: fixed;
+    position: inherit;
     background-color: $color-secondary;
     width: 100%;
     min-width: 50px;
     max-width: $nav-width-closed;
-    height: 100%;
+    height: inherit;
+    max-height: inherit;
     display: flex;
     flex-direction: column;
     align-items: center;
