@@ -1,4 +1,5 @@
 import React from 'react'
+import Hero from '../components/Hero'
 import Layout from '../components/Layout'
 
 interface Props {}
@@ -10,7 +11,7 @@ function Homepage(props: Props) {
         <>
             {/* <Layout /> */}
             <Layout >
-                <div>hi</div>
+                <Hero />
             </Layout>
 
             

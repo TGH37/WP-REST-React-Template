@@ -1,0 +1,18 @@
+@import 'config';
+@import 'utilities';
+
+.heroContainer {
+    margin: 0;
+    margin-left: $body-dt-margin-left * -1;
+    // margin-top: $body-dt-margin-top * -1;
+
+    width: 100%;
+    height: 500px;
+    overflow-x: none;
+    z-index: -1;
+
+    & img {
+        width: 500px;
+        height: 500px;
+    }
+}

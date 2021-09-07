@@ -4,6 +4,8 @@
 
 import React, { useEffect, createContext, useState, ReactElement } from 'react'
 
+// interface state {}
+
 export const BreakpointContext = createContext({});
 
 interface Props {
@@ -60,7 +62,7 @@ const BreakpointProvider = (props: Props) => {
   }, [queries])
 
   return (
-    <BreakpointContext.Provider value={queryMatch}>
+    <BreakpointContext.Provider value={{queryMatch, queries}}>
       {children}
     </BreakpointContext.Provider>
   )
