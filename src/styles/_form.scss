@@ -27,7 +27,7 @@
     font-weight: bold;
     &::placeholder {
         font-weight: normal;
-        color: black;
+        color: rgba($color: black, $alpha: 0.6);
     }
 
     &:focus, &:active, &:focus-visible {

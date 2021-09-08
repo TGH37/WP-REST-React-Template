@@ -11,7 +11,14 @@ function Homepage(props: Props) {
         <>
             {/* <Layout /> */}
             <Layout >
-                <Hero />
+                
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis laborum atque debitis reprehenderit, nisi ut aliquid earum doloremque distinctio eveniet quam, quo facilis excepturi amet vel tenetur obcaecati incidunt rem!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis laborum atque debitis reprehenderit, nisi ut aliquid earum doloremque distinctio eveniet quam, quo facilis excepturi amet vel tenetur obcaecati incidunt rem!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis laborum atque debitis reprehenderit, nisi ut aliquid earum doloremque distinctio eveniet quam, quo facilis excepturi amet vel tenetur obcaecati incidunt rem!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis laborum atque debitis reprehenderit, nisi ut aliquid earum doloremque distinctio eveniet quam, quo facilis excepturi amet vel tenetur obcaecati incidunt rem!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis laborum atque debitis reprehenderit, nisi ut aliquid earum doloremque distinctio eveniet quam, quo facilis excepturi amet vel tenetur obcaecati incidunt rem!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis laborum atque debitis reprehenderit, nisi ut aliquid earum doloremque distinctio eveniet quam, quo facilis excepturi amet vel tenetur obcaecati incidunt rem!</p>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis laborum atque debitis reprehenderit, nisi ut aliquid earum doloremque distinctio eveniet quam, quo facilis excepturi amet vel tenetur obcaecati incidunt rem!</p>
             </Layout>
 
             

@@ -1,6 +1,8 @@
 @import 'config';
 @import 'utilities';
 
+// TODO: Smooth out text appearing when nav is opened, with animations
+
 .navContainer {
     position: fixed;
     height: 100vh;
@@ -14,7 +16,7 @@
     transition: width 0.5s;
     
     @media (min-width: $breakpoint-desktop ) {
-        margin-top: $body-dt-margin-top * -1;
+        margin-top: -$body-dt-margin-top;
     };
 }
 
@@ -22,7 +24,7 @@
     position: inherit;
     background-color: $color-secondary;
     width: 100%;
-    min-width: 50px;
+    min-width: inherit;
     max-width: $nav-width-closed;
     height: inherit;
     max-height: inherit;
@@ -33,14 +35,16 @@
 }
 
 .staticItem {
-    max-height: 75px;
-    min-height: 50px;
+    width: 75%;
     display: flex;
     justify-content: center;
-
+    margin: 2vh 0;
+    
     & > svg {
-        width: 75%;
-        height: 100%;
+        width: 100%;
+        height: min-content;
+        min-height: 35px;
+        min-width: 35px;
         &:hover {
             cursor: pointer;
         }
@@ -59,11 +63,43 @@
     @media (min-width: $breakpoint-desktop ) {
         margin-right: $body-dt-margin-right + 2vw;
     };
+
+    & > * {
+        margin-left: $body-mob-margin-left;
+    }
     
+    & ul {
+        display: inherit;
+        flex-direction: inherit;
+        align-items: flex-end;
+        text-align: right;
+        &:first-of-type {
+            margin-top: 5vh;
+            margin-bottom: 2vh;
+        }
+
+        & + ul {
+            $vertical-margins: 2vh;
+            margin-top: $vertical-margins;
+            margin-bottom: $vertical-margins;
+        }
+    }
+
     & li {
-        $spacing-margin: 1vh * 2.5;
-        font-size: 1vh * 3;
+        $spacing-margin: 1.5vh;
+        font-size: 2.5vh;
         margin: $spacing-margin 0;
+        width: 100%;
+        
+        &:first-of-type {
+            margin-top: 0;
+        }
+        
+        @media (min-width: $breakpoint-min ) {
+            $spacing-margin: 2vh;
+            font-size: 3vh;
+            
+        };
     }
     & a {
         transition: font-size 0.5s;
@@ -72,14 +108,46 @@
             font-weight: bold;
         }
     }
+
+    & .listTitle {
+        opacity: 75%;
+        text-decoration: underline;
+    }
+    
     & form {
-        margin-left: $body-dt-margin-left;
+        
         width: auto;
+        font-size: 3vh;
+        padding: 2vh;
+        
+        @media (min-width: $breakpoint-desktop ) {
+            margin-left: $body-dt-margin-left;
+            transition: font-size 0.5s;
+            
+        };
+        
+        & > input {
+            font-size: inherit;
+            padding: 0 2vw;
+            @media (min-width: $breakpoint-desktop ) {
+                transition:  inherit;
+                &:hover, &:active, &:focus {
+                    font-size: 4vh;
+                    font-weight: bold;
+                    & ::placeholder {
+                        font-weight: bold;
+                    }
+                }
+            };
+        }
     }
 }
 
 .bars {
-    width: 50%;
+    // width: 50%;
+    // min-width: 35px;
+    // max-width: 50px;
+    font-size: 3vw;
 }
 
 .navExpanded {

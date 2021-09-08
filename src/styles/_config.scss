@@ -10,19 +10,29 @@ $breakpoint-min: 420px;
 $breakpoint-tablet: 768px;
 $breakpoint-desktop: 1024px;
 $breakpoint-hd: 1998px;
-
+@function getMax($val1, $val2) {
+    @return(calc(max($val1, $val2)));
+}
 // Layout
 $sidebar-width: 10vw;
 $nav-width-closed: 5vw;
+$body-dt-margin-left-offset: 2vw;
+$body-mob-margin-left-offset: 2vw;
 
-$body-dt-margin-top: 2rem;
+$body-dt-margin-top: 0;
 $body-dt-margin-bottom: 2rem;
-$body-dt-margin-left: $nav-width-closed + 2vw;
+$body-dt-margin-left: $nav-width-closed + $body-dt-margin-left-offset;
 $body-dt-margin-right: $sidebar-width;
 $body-dt-margin: $body-dt-margin-top $body-dt-margin-right $body-dt-margin-bottom $body-dt-margin-left;
 
+$body-tab-margin-top: 2rem;
+$body-tab-margin-bottom: 2rem;
+$body-tab-margin-left: $nav-width-closed + $body-dt-margin-left-offset;
+$body-tab-margin-right: 1rem;
+$body-tab-margin: $body-tab-margin-top $body-tab-margin-right $body-tab-margin-bottom $body-tab-margin-left;
+
 $body-mob-margin-top: 2rem;
 $body-mob-margin-bottom: 2rem;
-$body-mob-margin-left: 60px;
+$body-mob-margin-left: unquote("max(#{$nav-width-closed}, 60px)");
 $body-mob-margin-right: 1rem;
 $body-mob-margin: $body-mob-margin-top $body-mob-margin-right $body-mob-margin-bottom $body-mob-margin-left;

@@ -17,7 +17,8 @@
         padding: 1rem 0;
         width: $sidebar-width;
         text-align: center;
-        
+        background-color: rgba($color: white, $alpha: 0.85);
+        font-size: 3vh;
     };
 }
 
@@ -37,7 +38,12 @@
 
 .mainPageContent {
     z-index: 2;
+    max-width: 1600px;
+    margin: $body-mob-margin;
     @media (min-width: $breakpoint-desktop ) {
         margin: $body-dt-margin;
+    };
+    @media (min-width: $breakpoint-hd ) {
+        margin: auto
     };
 }
