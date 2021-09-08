@@ -21,7 +21,6 @@ module.exports = {
   module: {
     rules: [
       {
-        // test: /\.ts|tsx|js|jsx?$/,
         test: /\.js|jsx?$/,
         exclude: /node_modules/,
         loader: require.resolve("babel-loader"),
@@ -31,10 +30,6 @@ module.exports = {
         use: ['babel-loader', 'ts-loader'],
         exclude: /node_modules/,
       },
-      // {
-      //   test: /\.s[ac]ss$/,
-      //   use: ["style-loader", "css-loader", "sass-loader"],
-      // },
       {
         test: /\.s[ac]ss$/,
         use: ["style-loader", {loader: "css-loader", options: {modules: {localIdentName: "[name]__[local]"}}}, "sass-loader"],

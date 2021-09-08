@@ -28,7 +28,7 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.png|jpg|gif$/,
+        test: /\.png|gif$/,
         use: {
           loader: "file-loader",
           options: {
@@ -36,6 +36,10 @@ module.exports = {
             outputPath: "imgs"
           }
         },
+      },
+      {
+        test: /\.jpg$/,
+        use: ["optimized-images-loader"],
       },
       {
         test: /\.svg$/,
