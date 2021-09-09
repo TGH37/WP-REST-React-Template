@@ -17,7 +17,7 @@
 
 
 .searchFormInput {
-
+    
     padding: 1rem;
     border: none;
     background-color: transparent;
@@ -29,8 +29,14 @@
         font-weight: normal;
         color: rgba($color: black, $alpha: 0.6);
     }
-
-    &:focus, &:active, &:focus-visible {
+    
+    @media (min-width: $breakpoint-tablet ) {
+        transition: font-size 0.5s;
+        
+    };
+    &:focus, &:active, &:focus-visible, &:hover {
+        font-size: 3.5vh;
         outline: none;
     }
+
 }
