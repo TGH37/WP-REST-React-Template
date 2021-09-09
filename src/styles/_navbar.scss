@@ -102,10 +102,14 @@
         };
     }
     & a {
-        transition: font-size 0.5s;
-        &:hover {
+        transition: font-size 0.5s, color 0.15s;
+        outline: none;
+        &:hover, &:focus {
             font-size: 4vh;
             font-weight: bold;
+        }
+        &:active {
+            color: white;
         }
     }
 
