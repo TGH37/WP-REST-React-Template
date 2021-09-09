@@ -28,7 +28,7 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.png|gif$/,
+        test: /\.png|jpg|gif$/,
         use: {
           loader: "file-loader",
           options: {
@@ -37,10 +37,7 @@ module.exports = {
           }
         },
       },
-      {
-        test: /\.jpg$/,
-        use: ["optimized-images-loader"],
-      },
+     
       {
         test: /\.svg$/,
         use: ["@svgr/webpack","file-loader"],
