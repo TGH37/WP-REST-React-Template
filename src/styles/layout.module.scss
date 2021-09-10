@@ -19,6 +19,7 @@
         text-align: center;
         background-color: rgba($color: white, $alpha: 0.85);
         font-size: 3vh;
+        z-index: 2;
     };
 }
 
@@ -37,13 +38,28 @@
 }
 
 .mainPageContent {
-    z-index: 2;
-    max-width: 1600px;
+    // z-index: 1;
+    // max-width: 1600px;
     margin: $body-mob-margin;
+
+    @media (min-width: $breakpoint-tablet ) {
+        margin-top: 0;
+        & > section:first-of-type {
+            & > * {
+                padding-top: 10vh;
+            }
+        }
+    };
     @media (min-width: $breakpoint-desktop ) {
         margin: $body-dt-margin;
+        & > section:first-of-type {
+            & > * {
+                padding-top: 15vh;
+            }
+        }
     };
     @media (min-width: $breakpoint-hd ) {
-        margin: auto
+        // margin: auto
     };
+
 }

@@ -14,6 +14,7 @@
     justify-content: space-between;
     align-items: center;
     transition: width 0.5s;
+    z-index: 1;
     
     @media (min-width: $breakpoint-desktop ) {
         margin-top: -$body-dt-margin-top;
@@ -32,6 +33,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+    z-index: 2;
 }
 
 .staticItem {
@@ -60,6 +62,8 @@
     margin-right: $body-mob-margin-right;
     text-align: end;
     transition: display 0.5s ease-in-out;
+    z-index: 1;
+    
     @media (min-width: $breakpoint-desktop ) {
         margin-right: $body-dt-margin-right + 2vw;
     };
@@ -148,9 +152,6 @@
 }
 
 .bars {
-    // width: 50%;
-    // min-width: 35px;
-    // max-width: 50px;
     font-size: 3vw;
 }
 

@@ -36,3 +36,9 @@ $body-mob-margin-bottom: 2rem;
 $body-mob-margin-left: unquote("max(#{$nav-width-closed}, 60px)");
 $body-mob-margin-right: 1rem;
 $body-mob-margin: $body-mob-margin-top $body-mob-margin-right $body-mob-margin-bottom $body-mob-margin-left;
+
+// Typography
+
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@200;300;400;600&display=swap');
+
+$font-primary: "Raleway",Helvetica,sans-serif;

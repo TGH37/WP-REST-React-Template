@@ -24,7 +24,7 @@ function Layout(props: Props) {
       }, [mediaBreakpoints?.md]);
 
     return (
-        <>
+        <> 
             <Navbar />
             {isMobile ? <StaticSidebar /> : <MobileHeader />}
             <Hero />

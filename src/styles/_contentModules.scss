@@ -1,0 +1,96 @@
+@import 'config';
+@import 'utilities';
+
+.subModuleContainer {
+    border-top: 1px solid black;
+    margin-bottom: 3vh;
+    position: relative;
+
+    
+    & h2, p {
+        font-family: $font-primary;
+        margin-top: 1vh;
+        margin-bottom: 1vh;
+    }
+    
+    
+}
+
+.subModuleContentContainer,
+.subModuleTitle {
+    margin-left: 1vw;
+}
+
+
+.subModuleTitle {
+    text-transform: uppercase;
+    font-size: 2rem;
+    font-weight: 400;
+    max-width: 90%;
+    word-wrap: break-word;
+    
+    & > a {
+        color: $color-primary;
+        transition: color 0.25s;
+        transition: font-size 0.35s;
+        &:hover, &:focus {
+            font-size: 2.25rem;
+            color: $color-secondary;
+        }
+    }
+}
+
+.subModuleContentContainer {
+    overflow: hidden;
+    transition: height 0.5s;
+}
+
+.subModuleContent {
+    & :first-child{
+        margin-top: 0 !important;
+        & * {margin-top: inherit;}
+    }
+    & :last-child{
+        margin-bottom: 0 !important;
+        & * {margin-bottom: inherit;}
+    }
+
+    & img {
+        height: 20vh;
+        width: 20vw;
+    }
+}
+
+.excerpt {
+    transition: height 0.5s, opacity 0.25s;
+    overflow: hidden;
+    opacity: 1;
+}
+
+.hidden {
+    opacity: 0.5;
+}
+
+.plainTitle {
+    font-weight: 200;
+}
+
+.expandIcon {
+    position: absolute;
+    font-size: 2rem;
+    transition: color 0.25s;
+    font-weight: bold;
+
+    top: 0.5rem;
+    right: 0.5rem;
+
+    &:hover {
+        cursor: pointer;
+        color: $color-secondary;
+    }
+
+    @media (min-width: $breakpoint-desktop ) {
+        top: 1rem;
+        right: 1rem;
+    };
+}

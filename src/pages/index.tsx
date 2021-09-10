@@ -1,6 +1,8 @@
 import React from 'react'
+import ColumnisedSection from '../components/ColumnisedSection'
 import Hero from '../components/Hero'
 import Layout from '../components/Layout'
+import ModulatedContent from '../components/ModulatedContent'
 
 interface Props {}
 
@@ -12,18 +14,14 @@ function Homepage(props: Props) {
             {/* <Layout /> */}
             <Layout >
                 
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis laborum atque debitis reprehenderit, nisi ut aliquid earum doloremque distinctio eveniet quam, quo facilis excepturi amet vel tenetur obcaecati incidunt rem!</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis laborum atque debitis reprehenderit, nisi ut aliquid earum doloremque distinctio eveniet quam, quo facilis excepturi amet vel tenetur obcaecati incidunt rem!</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis laborum atque debitis reprehenderit, nisi ut aliquid earum doloremque distinctio eveniet quam, quo facilis excepturi amet vel tenetur obcaecati incidunt rem!</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis laborum atque debitis reprehenderit, nisi ut aliquid earum doloremque distinctio eveniet quam, quo facilis excepturi amet vel tenetur obcaecati incidunt rem!</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis laborum atque debitis reprehenderit, nisi ut aliquid earum doloremque distinctio eveniet quam, quo facilis excepturi amet vel tenetur obcaecati incidunt rem!</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis laborum atque debitis reprehenderit, nisi ut aliquid earum doloremque distinctio eveniet quam, quo facilis excepturi amet vel tenetur obcaecati incidunt rem!</p>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis laborum atque debitis reprehenderit, nisi ut aliquid earum doloremque distinctio eveniet quam, quo facilis excepturi amet vel tenetur obcaecati incidunt rem!</p>
+                <ColumnisedSection title="foo title" render={() => <ModulatedContent />}/>
+                <ColumnisedSection title="foo title sdfvgsdgfd" render={() => <ModulatedContent />}/>
             </Layout>
 
             
         </>
     )
 }
+
 
 export default Homepage
