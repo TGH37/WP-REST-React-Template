@@ -2,13 +2,12 @@
 @import 'utilities';
 
 .subModuleContainer {
-    border-top: 1px solid black;
+    // border-top: 1px solid black;
     margin-bottom: 3vh;
     position: relative;
 
     
     & h2, p {
-        font-family: $font-primary;
         margin-top: 1vh;
         margin-bottom: 1vh;
     }
@@ -55,10 +54,6 @@
         & * {margin-bottom: inherit;}
     }
 
-    & img {
-        height: 20vh;
-        width: 20vw;
-    }
 }
 
 .excerpt {

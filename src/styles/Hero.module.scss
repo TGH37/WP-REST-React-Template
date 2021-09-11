@@ -2,20 +2,27 @@
 @import 'utilities';
 
 .heroContainer {
-    margin: 0;
-    margin-left: 0;
-    margin-right: 0 !important;
+    margin-top: -$body-mob-margin-top;
+    margin-left: unquote("calc(#{$body-mob-margin-left} * -1)");
+    margin-right: -$body-mob-margin-right;
+    // margin: calc($body-mob-margin * -1);
     position: relative;
     
     z-index: -1;
     aspect-ratio: 16 / 9;
     overflow: hidden;
-
-    margin-left: -$body-mob-margin-left-offset;
+    
+    // margin-left: -$body-mob-margin-left-offset;
     @media (min-width: $breakpoint-tablet ) {
+        margin-top: 0;
+        margin-left: -$body-tab-margin-left;
+        margin-right: -$body-tab-margin-right;
     };
     @media (min-width: $breakpoint-desktop ) {
-        margin-left: -$body-dt-margin-left-offset;
+        // margin-left: -$body-dt-margin-left-offset;
+        margin-top: 0;
+        margin-left: -$body-dt-margin-left;
+        margin-right: -$body-dt-margin-right;
         
     };
     

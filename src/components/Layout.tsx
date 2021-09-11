@@ -5,7 +5,6 @@ import StaticSidebar from './StaticSidebar';
 import useBreakpoint, {mediaBreakpoints} from '../hooks/useBreakpoint';
 import MobileHeader from './MobileHeader';
 import Footer from './Footer';
-import Hero from './Hero';
 
 
 interface Props {
@@ -27,7 +26,6 @@ function Layout(props: Props) {
         <> 
             <Navbar />
             {isMobile ? <StaticSidebar /> : <MobileHeader />}
-            <Hero />
             <main className={styles.mainPageContent}>
                 {children}
             </main>

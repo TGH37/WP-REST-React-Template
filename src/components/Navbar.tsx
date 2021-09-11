@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import styles from 'src/styles/layout.module.scss';
 import { ReactComponent as Bars } from 'src/assets/svgs/bars.svg';
 import { ReactComponent as Logo } from 'src/assets/svgs/react.svg';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import { GlobalCtx } from '../contexts/GlobalCtx';
 
@@ -45,20 +45,20 @@ function Navbar(props: Props) {
             <div className={`${styles.navLinksContainer} ${isNavExpanded ? styles.showWhenExpanded : styles.hiddenWhenCollapsed}`}>
                 <ul>
                     <li className={styles.listTitle} >RECIPES</li>
-                    <li><Link to="/">Beginner Phase (0 - 4 weeks)</Link></li>
-                    <li><Link to="/">Intermediate Phase (4 - 8 weeks)</Link></li>
-                    <li><Link to="/">Fat Blaster (8 - 10 weeks)</Link></li>
-                    <li><Link to="/">Expert (12+ weeks)</Link></li>
+                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/recipes">Beginner Phase (0 - 4 weeks)</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/">Intermediate Phase (4 - 8 weeks)</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/">Fat Blaster (8 - 10 weeks)</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/">Expert (12+ weeks)</NavLink></li>
                 </ul>
 
                 <ul>
-                    <li><Link to="/">About Me</Link></li>
-                    <li><Link to="/">Keto Courses</Link></li>
-                    <li><Link to="/">Keto Resources</Link></li>
+                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/">Home</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/about">About Me</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/resources">Resources</NavLink></li>
                 </ul>
                 <ul>
-                    <li><Link to="/">Blog</Link></li>
-                    <li><Link to="/">Get in Touch</Link></li>
+                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/blog">Blog</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/contact">Get in Touch</NavLink></li>
 
                 </ul>
                 <SearchBar />

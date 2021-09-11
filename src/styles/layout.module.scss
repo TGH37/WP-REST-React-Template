@@ -38,8 +38,6 @@
 }
 
 .mainPageContent {
-    // z-index: 1;
-    // max-width: 1600px;
     margin: $body-mob-margin;
 
     @media (min-width: $breakpoint-tablet ) {
@@ -59,7 +57,33 @@
         }
     };
     @media (min-width: $breakpoint-hd ) {
-        // margin: auto
     };
 
+}
+
+.activeLink {
+    font-weight: bold;
+    position: relative;
+
+    &::before,
+    &::after
+    {
+        content: '';
+        display: inline;
+        height: 2px;
+        background-color: black   ;
+        position: absolute;
+        
+    }
+    &::before{
+        width: 25px;
+        left: -35px;
+        top: 50%;
+    }
+    &::after{
+        
+        width: 3px;
+        right: -7px;
+        top: 50%;
+    }
 }

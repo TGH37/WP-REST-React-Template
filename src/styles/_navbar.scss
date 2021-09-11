@@ -5,6 +5,7 @@
 
 .navContainer {
     position: fixed;
+    top: 0;
     height: 100vh;
     max-height: 100vh;
     background-color: adjust-color($color: $color-secondary, $alpha: -0.05) ;

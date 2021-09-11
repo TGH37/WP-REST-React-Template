@@ -1,0 +1,81 @@
+@import 'config';
+@import 'utilities';
+
+.previewCard {
+    $anim-time: 0.5s;
+    padding: 3vh 2vw;
+    margin-bottom: 10vh;
+    border-top: 1px solid black;
+    
+    transition: box-shadow $anim-time, font-size $anim-time, border-radius $anim-time;
+    box-sizing: border-box;
+    &:hover {
+        cursor: pointer;
+        box-shadow: 3px 2px darkgray;
+        font-size: 4vh;
+        border: 1px solid black;
+        border-radius: 1rem;
+
+        & > .cardImgContainer {
+            min-height: 225px !important;
+            @media (min-width: $breakpoint-tablet ) {
+                min-height: 325px !important;
+            };
+        }
+    }
+    @media (min-width: $breakpoint-tablet ) {
+        width: 90%;
+        &:first-of-type {
+            border-top: none;
+        }
+        
+    };
+    
+    @media (min-width: $breakpoint-desktop ) {
+        width: 80%;
+        margin-bottom: 15vh;
+        
+    };
+}
+
+.cardImgContainer {
+    width: 100%;
+    height: 40%;
+    min-height: 200px;
+    max-height: 225px;
+    height: 200px;
+    margin: auto;
+    transition: min-height 0.5s;
+    
+    & > img {
+        object-fit: contain;
+        width: inherit;
+        height: inherit;
+        max-height: inherit;
+        min-height: inherit;
+    }
+    
+    @media (min-width: $breakpoint-tablet ) {
+        min-height: 300px;
+        max-height: 325px;
+        height: 300px;
+
+        
+    };
+
+    @media (min-width: $breakpoint-desktop ) {
+        
+    };
+}
+
+.emptyImgContainer {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+    & > p {
+        text-align: center;
+        width: 100%;
+    }
+}

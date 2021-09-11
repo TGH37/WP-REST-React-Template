@@ -1,0 +1,51 @@
+@import 'config';
+@import 'utilities';
+@import 'pageSectionLayout';
+
+.pageContentContainer {
+    display: flex;
+    flex-direction: column;
+    @media (min-width: $breakpoint-tablet ) {
+        flex-direction: row;
+        
+    };
+    
+    @media (min-width: $breakpoint-desktop ) {
+        
+    };
+}
+
+.titleSection {
+    @extend .titleSection;
+    padding-top: 0 !important;
+    
+
+    @media (min-width: $breakpoint-tablet ) {
+        
+    };
+    
+    @media (min-width: $breakpoint-desktop ) {
+        
+    };
+}
+
+.contentSection {
+    padding-top: 0 !important;
+    
+    @extend .contentSection;
+    @media (min-width: $breakpoint-tablet ) {
+        & > h2 {
+            text-transform: uppercase;
+            font-size: 2rem;
+            font-weight: 400;
+            margin-bottom: 5vh
+        }   
+    };
+    
+    @media (min-width: $breakpoint-desktop ) {
+        & > h2 {
+            margin-bottom: 10vh
+        }   
+        
+    };
+}

@@ -11,12 +11,11 @@ function Homepage(props: Props) {
 
     return (
         <>
-            {/* <Layout /> */}
-            <Layout >
-                
+            {/* <Layout > */}
+                <Hero />
                 <ColumnisedSection title="foo title" render={() => <ModulatedContent />}/>
                 <ColumnisedSection title="foo title sdfvgsdgfd" render={() => <ModulatedContent />}/>
-            </Layout>
+            {/* </Layout> */}
 
             
         </>

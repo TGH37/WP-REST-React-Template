@@ -20,7 +20,7 @@ function ModulatedContent(propsIn: Props) {
 
     return (
         <ul>
-            {data.map((dataObj, idx) => <LinkModule data={data[idx]} />)}
+            {data.map((dataObj, idx) => <LinkModule data={data[idx]}/>)}
         </ul>
     );
 };
