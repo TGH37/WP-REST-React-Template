@@ -25,15 +25,26 @@
     }
     @media (min-width: $breakpoint-tablet ) {
         width: 90%;
-        &:first-of-type {
-            border-top: none;
-        }
+        // &:first-of-type {
+        //     border-top: none;
+        // }
         
     };
     
     @media (min-width: $breakpoint-desktop ) {
         width: 80%;
         margin-bottom: 15vh;
+        
+    };
+}
+
+.previewCardContainer {
+    @media (min-width: $breakpoint-tablet ) {
+        &:first-of-type {
+            & > .previewCard {
+                border-top: none;
+            }
+        }
         
     };
 }
