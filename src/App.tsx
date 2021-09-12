@@ -25,8 +25,6 @@ const App = () => {
             <GlobalProvider> 
                 <BreakpointProvider>
                     <Layout >
-                        {/* {children} */}
-
                         <Switch >
                             <Route exact path={["/", "/home"]} component={Homepage}/>
                             <Route exact path={"/recipes"} component={RecipesPage}/>
@@ -35,6 +33,7 @@ const App = () => {
                             <Route exact path={"/resources"} component={ResourcesPage}/>
                             <Route exact path={"/blog"} component={BlogPage}/>
                             <Route exact path={"/blog/:slug"} component={SingleBlogPostPage}/>
+                            {/* <Route exact path={"/blog/:slug"}><SingleBlogPostPage data={"Hello"}/></Route> */}
                             <Route exact path={"/contact"} component={ContactPage}/>
                         </Switch>
                     </Layout>
