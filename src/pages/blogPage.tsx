@@ -1,8 +1,8 @@
-import React, { ReactElement, useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import styles from 'src/styles/blog.module.scss';
 import PageContentColumns from '../components/PageContentColumns';
 import BlogPreviewItem from '../components/BlogPreviewItem';
-import { Switch, useRouteMatch } from 'react-router';
+import { useRouteMatch } from 'react-router';
 import { Link } from 'react-router-dom';
 
 interface Props {};
@@ -11,108 +11,101 @@ function BlogPage(props: Props) {
     const {} = props;
     const [wpData, setWpData] = useState<any>(null);
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const { url, path } = useRouteMatch();
+    const { url } = useRouteMatch();
 
     type cacheMatch = {id: number, isStillValid: boolean};
-    type cacheUpdateResponse = {success: boolean, isUpdateRequired?: boolean, matchedPosts?: cacheMatch[], err?: any};
-    // TODO Configure to have response composed of success and fail
     type cacheUpdateSuccess = {success: boolean, isUpdateRequired: boolean, matchedPosts: cacheMatch[]};
     type cacheUpdateFail = {success: boolean, isUpdateRequired: boolean, err?: any};
 
-    const saveLocalStorage = (res: any) => {
-        
-    }
 
-    const getParsedCache = (): Array<any> => {
-        const cachedValueRaw = window.sessionStorage.getItem("keto-bps");
-        // return cachedValueRaw ? [cachedValueRaw] : []
+    const getParsedCache = (key: string = "keto-bps"): Array<any> => {
+        const cachedValueRaw = window.sessionStorage.getItem(key);
         return cachedValueRaw ? JSON.parse(cachedValueRaw) : [];
     }
 
+    const mergeCacheAndFetchData = (cachedArry: Array<any>, resArry: Array<any>): Array<any> => {
+        if(cachedArry === []) return resArry;
+        const returnArry = [...cachedArry];
+        resArry.map((resObj) => {
+            const matchedIdx = cachedArry.findIndex(cacheObj => cacheObj.id === resObj.id);
+            if(matchedIdx === -1) returnArry.push(resObj)
+            else returnArry[matchedIdx] = resObj; 
+        })
+        return returnArry;
+    }
     useEffect(() => {
-        // const cacheUpdateRes: cacheUpdateResponse = checkCacheUpdateRequiredWithDB();
-        // if(!cacheUpdateRes.success) {
-        //     fetchAllPosts();
-        //     return
-        // }
-        // if(cacheUpdateRes.success && !cacheUpdateRes.isUpdateRequired) {
-        //     setIsLoading(false);
-        //     return;
-        // }
-        // const successfulCacheUpdateResponse = cacheUpdateRes as cacheUpdateSuccess;
-        // const cachePostsToUpdate = successfulCacheUpdateResponse.matchedPosts.filter((response: cacheMatch) => !response.isStillValid);
-        // const updateIds = cachePostsToUpdate.map(post => post.id);
-        // const updateIdsString = updateIds.toString();
-        // const updateIdQueryParam = updateIdsString.replace(",","/");
-        // console.log(updateIdQueryParam)
-
-        const mergedCacheAndFetchData = (cachedArry: Array<any>, resArry: Array<any>): Array<any> => {
-            if(cachedArry === []) return resArry;
-            const returnArry = [...cachedArry];
-            resArry.map((resObj) => {
-                const matchedIdx = cachedArry.findIndex(cacheObj => cacheObj.id === resObj.id);
-                if(matchedIdx === -1) returnArry.push(resObj)
-                else returnArry[matchedIdx] = resObj; 
+        checkCacheUpdateRequiredWithDB()
+            .then(cacheUpdateRes => {
+                if(!cacheUpdateRes.success) {
+                    fetchAndCache();
+                    throw new Error("unsuccessful");
+                }
+                if(!cacheUpdateRes.isUpdateRequired) {
+                    setIsLoading(false);
+                    setWpData(getParsedCache());
+                    return null;
+                }
+                const successfulCacheUpdateResponse = cacheUpdateRes as cacheUpdateSuccess;
+                const cachePostsToUpdate = successfulCacheUpdateResponse.matchedPosts.filter((post: cacheMatch) => !post.isStillValid);
+                if(!cachePostsToUpdate.length) return "";
+                const updateIds = cachePostsToUpdate.map(post => post.id);
+                return `?include[]=${updateIds.toString().replace(",","&include[]=")}`; // '&include[]=' is the syntax for querying specific id's
             })
-            return returnArry;
+            .then( queryString => {
+                if(queryString === null) return;
+                if(queryString.length) fetchAndCache(queryString);
+                else fetchAndCache();
+            })
+            .catch(err => {
+                console.log("Final Error: " + err);
+            });
+
+        }, []);
+        
+        const fetchAndCache = (queryString: string = "") => {
+            fetch(`http://www.react-test.dev.cc/wp-json/wp/v2/posts${queryString}`)
+                .then( res => res.json())
+                .then((formattedRes: Array<any>) => {
+                    const cachedValueArry = getParsedCache();
+                    const updatedCacheDataArry = mergeCacheAndFetchData(cachedValueArry, formattedRes);
+                    const saveData = JSON.stringify(updatedCacheDataArry);
+                    
+                    window.sessionStorage.setItem("keto-bps", saveData);
+                })
+                .then(() => {
+                    setWpData(getParsedCache()); 
+                    setIsLoading(false);
+                })
+                .catch(err =>{
+                    console.log("All Data Fetch Error: " + err);
+                    setIsLoading(false);
+                });
         }
 
-
-        fetch("http://www.react-test.dev.cc/wp-json/wp/v2/posts")
-            .then( res => res.json())
-            .then((formattedRes: Array<any>) => {
-                setWpData(formattedRes); 
-                setIsLoading(false);
-
-                const cachedValueArry = getParsedCache();
-                const updatedCacheDataArry = mergedCacheAndFetchData(cachedValueArry, formattedRes);
-                const saveData = JSON.stringify(updatedCacheDataArry);
-
-                window.sessionStorage.setItem("keto-bps", saveData);
-            })
-            .catch(err =>{
-                console.log(err);
-                setIsLoading(false);
-            });
-        }, []);
-
-    const fetchAllPosts = () => {
-        fetch("http://www.react-test.dev.cc/wp-json/wp/v2/posts")
-            .then( res => res.json())
-            .then(formattedRes => {
-                setWpData(formattedRes); 
-                setIsLoading(false);
-            })
-            .catch(err =>{
-                // TODO improve error logging
-                console.log(err);
-                setIsLoading(false);
-            });
-    };
-
         
-    const checkCacheUpdateRequiredWithDB = (): cacheUpdateResponse => {
+    const checkCacheUpdateRequiredWithDB = () => {
         // Probe db to compare posts with any cached posts in the browser
         // If a post hasn't been cached, or a cached post is outdated, trigger a full info fetch for that post
-        let status: cacheUpdateResponse = {success: false};
-        let isUpdateRequired = false;
-        fetch("http://www.react-test.dev.cc/wp-json/wp/v2/posts?_fields=id,modified")
+        return fetch("http://www.react-test.dev.cc/wp-json/wp/v2/posts?_fields=id,modified")
         .then(res => res.json())
         .then(resJSON => {
-            const fromStorage = window.sessionStorage.getItem("keto-bps");
             // TODO set this to have a "should update all" effect, or separate that logic into separate function
-            if(fromStorage === null) {status = {success: true}; return status};
-            const parsedStorage = JSON.parse(fromStorage);
-            const matchedPosts = parsedStorage?.map((storageObj: any) => ({id: storageObj.id, isStllValid: !!resJSON.find((resObj: {id: number, modified: string}) => {
-                const shouldUpdate = resObj.id === storageObj.id && resObj.modified === storageObj.modified;
-                if(shouldUpdate && !isUpdateRequired) isUpdateRequired = true;
-                return shouldUpdate
-            })}));
-            status = {success: true, matchedPosts, isUpdateRequired}
+            const cachedValueArry = getParsedCache();
+            if(!cachedValueArry.length) return {success: true, isUpdateRequired: true, matchedPosts: []} as cacheUpdateSuccess;
+            const matchedPosts = cachedValueArry?.map((storageObj: any) => (
+                {
+                    id: storageObj.id, 
+                    isStillValid: !!resJSON.find((resObj: {id: number, modified: string}) => resObj.id === storageObj.id && resObj.modified === storageObj.modified
+                )}
+            ));
+            const invalidPosts = matchedPosts.filter((postObj: cacheMatch) => !postObj.isStillValid);
+            return {success: true, matchedPosts, isUpdateRequired: !!invalidPosts.length} as cacheUpdateSuccess;
         })
-        .catch(err => status = {success: false, err})
-        return status;
-    }
+        .catch(err => {
+            console.log("Probe Data Fetch Error: " + err);
+            return{success: false, err, isUpdateRequired: true} as cacheUpdateFail;
+        });
+    };
 
     const blogPosts = useMemo(() => {
         if(!wpData) return;
