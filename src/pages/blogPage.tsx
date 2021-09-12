@@ -19,8 +19,22 @@ function BlogPage(props: Props) {
     type cacheUpdateSuccess = {success: boolean, isUpdateRequired: boolean, matchedPosts: cacheMatch[]};
     type cacheUpdateFail = {success: boolean, isUpdateRequired: boolean, err?: any};
 
+    const saveLocalStorage = (res: any) => {
+        
+    }
+
+    const getParsedCache = (): Array<any> => {
+        const cachedValueRaw = window.sessionStorage.getItem("keto-bps");
+        // return cachedValueRaw ? [cachedValueRaw] : []
+        return cachedValueRaw ? JSON.parse(cachedValueRaw) : [];
+    }
+
     useEffect(() => {
         // const cacheUpdateRes: cacheUpdateResponse = checkCacheUpdateRequiredWithDB();
+        // if(!cacheUpdateRes.success) {
+        //     fetchAllPosts();
+        //     return
+        // }
         // if(cacheUpdateRes.success && !cacheUpdateRes.isUpdateRequired) {
         //     setIsLoading(false);
         //     return;
@@ -32,26 +46,50 @@ function BlogPage(props: Props) {
         // const updateIdQueryParam = updateIdsString.replace(",","/");
         // console.log(updateIdQueryParam)
 
+        const mergedCacheAndFetchData = (cachedArry: Array<any>, resArry: Array<any>): Array<any> => {
+            if(cachedArry === []) return resArry;
+            const returnArry = [...cachedArry];
+            resArry.map((resObj) => {
+                const matchedIdx = cachedArry.findIndex(cacheObj => cacheObj.id === resObj.id);
+                if(matchedIdx === -1) returnArry.push(resObj)
+                else returnArry[matchedIdx] = resObj; 
+            })
+            return returnArry;
+        }
+
+
         fetch("http://www.react-test.dev.cc/wp-json/wp/v2/posts")
             .then( res => res.json())
-            .then(formattedRes => {
+            .then((formattedRes: Array<any>) => {
                 setWpData(formattedRes); 
-                // console.log(formattedRes);
                 setIsLoading(false);
-                // const fromStorage = window.sessionStorage.getItem("keto-bps");
-                // const parsedStorage  = fromStorage ? JSON.parse(fromStorage) : [];
 
-                // const resString = JSON.stringify(formattedRes);
+                const cachedValueArry = getParsedCache();
+                const updatedCacheDataArry = mergedCacheAndFetchData(cachedValueArry, formattedRes);
+                const saveData = JSON.stringify(updatedCacheDataArry);
 
-                // if(parsedStorage.filter((storageObj: any) => formattedRes.includes(storageObj)).length) return;
-                // parsedStorage.push(resString);
-                // window.sessionStorage.setItem("keto-bps", parsedStorage.toString());
+                window.sessionStorage.setItem("keto-bps", saveData);
             })
             .catch(err =>{
                 console.log(err);
                 setIsLoading(false);
             });
         }, []);
+
+    const fetchAllPosts = () => {
+        fetch("http://www.react-test.dev.cc/wp-json/wp/v2/posts")
+            .then( res => res.json())
+            .then(formattedRes => {
+                setWpData(formattedRes); 
+                setIsLoading(false);
+            })
+            .catch(err =>{
+                // TODO improve error logging
+                console.log(err);
+                setIsLoading(false);
+            });
+    };
+
         
     const checkCacheUpdateRequiredWithDB = (): cacheUpdateResponse => {
         // Probe db to compare posts with any cached posts in the browser
