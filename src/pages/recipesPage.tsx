@@ -24,7 +24,7 @@ function RecipesPage(props: Props) {
         return postArry.map((post: any) => {
             const { title, excerpt, modified, id, featured_media, slug}: {title: {rendered: string}, excerpt: {rendered: string, protected: boolean,}, modified: string, id: number, featured_media: number, slug: string} = post;
 
-            return <Link to={`${url}/${slug}`}><BlogPreviewItem title={title.rendered} excerpt={excerpt.rendered} meta={[modified]} feautredMediaId={featured_media} key={`recipe_prev_id:${id}`}/></Link>
+            // return <Link to={`${url}/${slug}`}><BlogPreviewItem title={title.rendered} excerpt={excerpt.rendered} meta={[modified]} postUrl={featured_media} key={`recipe_prev_id:${id}`}/></Link>
         });
 
     }, [wpData])

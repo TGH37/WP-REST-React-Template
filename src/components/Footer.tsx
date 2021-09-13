@@ -19,9 +19,9 @@ function Footer(props: Props) {
                     <p>T +44123456789<br/>E email@address.com</p>
                 </div>
                 <div className={`${styles.footerFlexSection} ${styles.footerLegalNav}`}>
-                    <Link to="/privacy-policy"><a>Privacy Policy</a></Link>
-                    <Link to="/terms-of-service"><a>Terms of Service</a></Link>
-                    <Link to="/cookie-policy"><a>Cookie Policy</a></Link>
+                    <Link to="/privacy-policy">Privacy Policy</Link>
+                    <Link to="/terms-of-service">Terms of Service</Link>
+                    <Link to="/cookie-policy">Cookie Policy</Link>
                 </div>
             </div>
             <div>

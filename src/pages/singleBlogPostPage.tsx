@@ -1,15 +1,17 @@
 import React from 'react';
 import PageContentColumns from '../components/PageContentColumns';
 
-interface Props {};
+interface Props {
+    data?: any
+};
 
 function SingleBlogPostPage(props: Props) {
-    const {} = props;
-
+    const { data } = props;
+    const foo = data ? data : "no data"
     const title = "Blog"
     return (
         <PageContentColumns title={title}>
-            <h2>Single Blog Post</h2>
+            {data ? <h2>{foo}</h2> :<h2>Single Blog Post</h2>}
         </PageContentColumns>
     );
 };
