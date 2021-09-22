@@ -25,15 +25,15 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js|jsx?$/,
+        test: /\.js|jsx|tsx|ts?$/,
         exclude: /node_modules/,
         loader: require.resolve("babel-loader"),
       },
-      {
-        test: /\.tsx|ts?$/,
-        use: ['babel-loader', 'ts-loader'],
-        exclude: /node_modules/,
-      },
+      // {
+      //   test: /\.tsx|ts?$/,
+      //   use: ['babel-loader', 'ts-loader'],
+      //   exclude: /node_modules/,
+      // },
       {
         test: /\.s[ac]ss$/,
         use: ["style-loader", {loader: "css-loader", options: {modules: {localIdentName: "[name]__[local]"}}}, "sass-loader"],

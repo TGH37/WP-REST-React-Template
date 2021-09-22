@@ -15,11 +15,11 @@ function BlogPage(props: Props) {
     const mediaUrl = "http://www.react-test.dev.cc/wp-json/wp/v2/media", mediaCacheKey = "keto-bps-media";
     
     
-    type mediaCacheMatch = {id: number, isStillValid: boolean};
+    type mediaCacheMatch = {id: number, isStillValid: boolean, isStillUsed: boolean};
     type mediaCacheUpdateSuccess = {success: boolean, isUpdateRequired: boolean, matchedMediaObjects: mediaCacheMatch[]};
     type mediaDataProbeResponse = {id: number, modified: string};
     
-    type cacheMatch = {id: number, mediaId: number, isStillValid: boolean, isMediaUrlValid: boolean};
+    type cacheMatch = {id: number, mediaId: number, isStillValid: boolean, isMediaUrlValid: boolean, isStillUsed: boolean};
     type cacheUpdateSuccess = {success: boolean, isUpdateRequired: boolean, matchedPosts: cacheMatch[]};
     type cacheUpdateFail = {success: boolean, isUpdateRequired: boolean, err?: any};
     type updateQuery = {root: string, media: string};
@@ -44,6 +44,15 @@ function BlogPage(props: Props) {
         "modified",
     ]
 
+    const rootDataFetchFields = [
+        "id",
+        "title",
+        "excerpt",
+        "modified",
+        "featured_media",
+        "slug" 
+    ]
+
     
 
     const checkCacheUpdateRequiredWithDB = () => {
@@ -55,15 +64,18 @@ function BlogPage(props: Props) {
         .then((resJSON: Array<rootDataProbeResponse>) => {
             const cachedValueArry = getParsedCache(rootCacheKey);
             const matchedPosts: cacheMatch[] | [] = resJSON?.map((resObj: rootDataProbeResponse): cacheMatch => {
-                const isStillValid = !!cachedValueArry.find((cacheObj: any) => resObj.id === cacheObj.id && resObj.modified === cacheObj.modified);
+                const isStillUsed = !!cachedValueArry.find((cacheObj: any) => resObj.id === cacheObj.id);
+                const isStillValid = isStillUsed && !!cachedValueArry.find((cacheObj: any) => resObj.modified === cacheObj.modified);
                 const isMediaUrlValid = isStillValid ? true : !!cachedValueArry.find((cacheObj: any) => resObj.id === cacheObj.id && resObj.featured_media === cacheObj.featured_media);
                 return {
                     id: resObj.id,
                     mediaId: resObj.featured_media,
                     isStillValid,
-                    isMediaUrlValid
+                    isMediaUrlValid,
+                    isStillUsed
                 };
             });
+            // TODO: check if the media cache is up to date (if the posts cache is up-to date, but the media cache isn't, it'll still flag as update not required)
             const invalidPosts = matchedPosts.filter((postObj: cacheMatch) => !postObj.isStillValid);
             return {success: true, matchedPosts, isUpdateRequired: !!invalidPosts.length} as cacheUpdateSuccess;
         })
@@ -77,12 +89,15 @@ function BlogPage(props: Props) {
         return fetch(`${mediaUrl}?_fields=${mediaDataQueries.toString()}`)
             .then(res => res.json())
             .then((resJSON: Array<mediaDataProbeResponse>) => {
-                const cachedValueArry = getParsedCache(mediaCacheKey);
+                const cachedRootDataArry = getParsedCache(rootCacheKey);
+                const cachedMediaValueArry = getParsedCache(mediaCacheKey);
                 const matchedMediaObjects: mediaCacheMatch[] | [] = resJSON?.map((resObj: mediaDataProbeResponse): mediaCacheMatch => {
-                    const isStillValid = !!cachedValueArry.find((cacheObj: any) => resObj.id === cacheObj.id && resObj.modified === cacheObj.modified);
+                    const isStillUsed = !!cachedRootDataArry.find((cacheObj: any) => resObj.id === cacheObj.featured_media);
+                    const isStillValid = isStillUsed && !!cachedMediaValueArry.find((cacheObj: any) => resObj.modified === cacheObj.modified);
                     return {
                         id: resObj.id,
                         isStillValid,
+                        isStillUsed,
                     };
                 });
                 const invalidCachedObjects = matchedMediaObjects.filter((mediaObj: mediaCacheMatch) => !mediaObj.isStillValid);
@@ -92,7 +107,17 @@ function BlogPage(props: Props) {
                 console.log("Media Probe Data Fetch Error: " + err);
                 return{success: false, err, isUpdateRequired: true} as cacheUpdateFail;
             });
+    }
 
+    const removeMediaFromCache = (cacheKey: string, cacheMatchArry: mediaCacheMatch[]): void => {
+        const itemsToRemove = cacheMatchArry.filter(matchObj => !matchObj.isStillUsed);
+        const cachedValues = getParsedCache(cacheKey);
+        itemsToRemove.map(matchObj => {
+            const idxToRemove = cachedValues.findIndex(cacheObj => cacheObj.id === matchObj.id);
+            cachedValues.splice(idxToRemove);
+        });
+        const saveData = JSON.stringify(cachedValues);
+        window.sessionStorage.setItem(cacheKey, saveData);
     }
 
     const mergeCacheAndFetchData = (cachedArry: Array<any>, resArry: Array<any>): Array<any> => {
@@ -133,7 +158,7 @@ function BlogPage(props: Props) {
         checkCacheUpdateRequiredWithDB()
             .then(cacheUpdateRes => {
                 if(!cacheUpdateRes.success) {
-                    fetchAndCache(rootUrl, rootCacheKey);
+                    fetchAndCache(rootUrl, rootCacheKey, `?_fields=${rootDataFetchFields.toString()}`);
                     fetchAndCache(mediaUrl, mediaCacheKey);
                     throw new Error("unsuccessful");
                 }
@@ -162,16 +187,59 @@ function BlogPage(props: Props) {
 
         }, []);
 
+    // useEffect(() => {
+    //     // TODO: test errors
+    //     checkMediaCacheUpdateRequiredWithDB()
+    //         .then(cacheUpdateRes => {
+    //             if(!cacheUpdateRes.success) {
+    //                 fetchAndCache(mediaUrl, mediaCacheKey);
+    //                 throw new Error("unsuccessful media");
+    //             }
+    //             if(!cacheUpdateRes.isUpdateRequired) {
+    //                 setIsLoading(false);
+    //                 return null;
+    //             }
+    //             const successfulCacheUpdateResponse = cacheUpdateRes as mediaCacheUpdateSuccess;
+    //             const allCachedItems = successfulCacheUpdateResponse.matchedMediaObjects;
+    //             removeMediaFromCache(mediaCacheKey, allCachedItems);
+    //             const cachePostsToUpdate = allCachedItems.filter((post: mediaCacheMatch) => !post.isStillValid);
+    //             const updateIds = cachePostsToUpdate.map(post => ({id: post.id, }));
+    //             return `?include[]=${cachePostsToUpdate.toString().replace(/,/g,"&include[]=")}`
+    //         })
+    //         .then( (queryString: string | null) => {
+    //             if(queryString === null) return;
+    //             fetchAndCache(mediaUrl, mediaCacheKey, queryString);
+    //         })
+    //         .then(() => {
+
+    //         })
+    //         .catch(err => {
+    //             console.log("Final Error: " + err);
+    //         });
+
+    //     }, []);
+
         const getQueryParams = (idObjArry: Array<{id: number, isMediaUrlValid: boolean, mediaId: number}>): updateQuery => {
             const ids = idObjArry.map(idObj => idObj.id);
             const mediaArry = idObjArry.flatMap(idObj => {
                 if(idObj.isMediaUrlValid || idObj.mediaId === 0) return [];
                 return [idObj.mediaId];
             });
+            const rootIdsIncludeQuery = ids.length ? `include[]=${ids.toString().replace(/,/g,"&include[]=")}` : "";
+            const rootFieldsIncludeQuery =` _fields=${rootDataFetchFields.toString()};
+`
+            
+            const mediaIdsIncludeQuery = ids.length ? `include[]=${mediaArry.toString().replace(/,/g,"&include[]=")}` : "";
+            return {
+                root: `?${rootIdsIncludeQuery}&${rootFieldsIncludeQuery}`,
+                media: `${mediaIdsIncludeQuery}`
+            };
+        }
+        const getMediaQueryParams = (idObjArry: Array<{id: number, isStillValid: boolean}>) => {
+            const ids = idObjArry.filter(idObj => !idObj.isStillValid);
 
             return {
-                root: `?include[]=${ids.toString().replace(/,/g,"&include[]=")}`,
-                media: `?include[]=${mediaArry.toString().replace(/,/g,"&include[]=")}`
+                media: `?include[]=${ids.toString().replace(/,/g,"&include[]=")}`
             };
         }
         

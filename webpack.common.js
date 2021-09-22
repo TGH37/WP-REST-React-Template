@@ -18,15 +18,15 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx|js?$/,
+        test: /\.jsx|js|tsx|ts?$/,
         exclude: /node_modules/,
         loader: require.resolve("babel-loader"),
       },
-      {
-        test: /\.tsx|ts?$/,
-        use: ['babel-loader','ts-loader'],
-        exclude: /node_modules/,
-      },
+      // {
+      //   test: /\.tsx|ts?$/,
+      //   use: ['babel-loader','ts-loader'],
+      //   exclude: /node_modules/,
+      // },
       {
         test: /\.png|jpg|gif$/,
         use: {

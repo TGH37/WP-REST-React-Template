@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server --hot --open --mode development",
     "dev": "webpack --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js"
+    "build": "webpack --config webpack.prod.js",
+    "test": "jest --verbose"
   },
   "keywords": [],
   "author": "",
@@ -35,18 +36,37 @@
   },
   "devDependencies": {
     "@svgr/webpack": "^5.5.0",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^12.1.0",
+    "@types/jest": "^27.0.1",
     "@types/react": "^17.0.20",
     "@types/react-dom": "^17.0.9",
     "@types/react-router-dom": "^5.1.8",
+    "babel-jest": "^27.2.0",
     "css-loader": "^6.2.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "file-loader": "^6.2.0",
     "html-loader": "^2.1.2",
+    "jest": "^27.2.0",
     "mini-css-extract-plugin": "^2.2.2",
     "sass": "^1.39.0",
     "sass-loader": "^12.1.0",
+    "ts-jest": "^27.0.5",
     "ts-loader": "^9.2.5",
     "webpack": "^5.52.0",
     "webpack-merge": "^5.8.0"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+    },
+    "transform": {
+      "\\.js$": "babel-jest"
+    }
   }
 }
