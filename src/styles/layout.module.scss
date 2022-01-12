@@ -5,8 +5,12 @@
 
 .staticSidebar {
     @media (min-width: $breakpoint-tablet ) {
+        font-family: $font-primary;
         position:fixed;
-        display: inline-flex;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
         margin: 0;
         flex-direction: column;
         top: 0;
@@ -29,12 +33,33 @@
     right: 0;
     padding: 2rem 0;
     border-bottom: 1px solid black;
-    display: inline-flex;
+    display: flex;
     width: 100%;
+    max-height: 80px;
+    justify-content: space-between;
+    align-items: center;
     z-index: -1;
-    & :first-child{
+    & > :first-child{
         padding-left: 4rem;
     }
+    
+    & > :last-child {
+        margin-right: 2vw;
+        
+    }
+    @media (min-width: $breakpoint-tablet ) {
+        max-height: 100px;
+        
+    };
+}
+
+.mobileHeaderLogoContainer {
+    max-height: inherit;
+    & > * {
+        width: min-content;
+        max-height: inherit;
+    }
+    
 }
 
 .mainPageContent {

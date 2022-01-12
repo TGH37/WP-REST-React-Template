@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import styles from 'src/styles/layout.module.scss';
 import { ReactComponent as Bars } from 'src/assets/svgs/bars.svg';
-import { ReactComponent as Logo } from 'src/assets/svgs/react.svg';
+import { ReactComponent as Logo } from 'src/assets/svgs/logo.svg';
 import { Link, NavLink } from 'react-router-dom';
 import SearchBar from './SearchBar';
 import { GlobalCtx } from '../contexts/GlobalCtx';
@@ -39,7 +39,7 @@ function Navbar(props: Props) {
                 <div 
                     className={`${styles.staticItem} ${""}`}
                     >
-                    <Logo x={0} y={0} viewBox="0 0 220 190"/>
+                    <Logo x={0} y={0} viewBox="0 0 114.471 110.804" className={styles.navLogo} style={{fill: "black"}}/>
                 </div>
             </div>
             <div className={`${styles.navLinksContainer} ${isNavExpanded ? styles.showWhenExpanded : styles.hiddenWhenCollapsed}`}>

@@ -13,7 +13,7 @@ function Homepage(props: Props) {
         <>
             {/* <Layout > */}
                 <Hero />
-                <ColumnisedSection title="foo title" render={() => <ModulatedContent />}/>
+                <ColumnisedSection title="Pinned Reads" render={() => <ModulatedContent />}/>
                 <ColumnisedSection title="foo title sdfvgsdgfd" render={() => <ModulatedContent />}/>
             {/* </Layout> */}
 

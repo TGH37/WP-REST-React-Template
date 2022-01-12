@@ -1,0 +1,14 @@
+@import 'config';
+@import 'utilities';
+
+
+
+button {
+    background-color: $color-background;
+    outline: none;
+    padding: .85rem 1rem;
+    font-family: $font-primary;
+    font-size: 1rem;
+    font-weight: 600;
+    
+}

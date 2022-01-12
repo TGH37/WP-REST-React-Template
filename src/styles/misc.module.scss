@@ -2,3 +2,23 @@
 @import 'utilities';
 @import 'form';
 
+.socMed {
+    & * + * {
+        margin-left: 2vw;
+    }
+    
+    @media (min-width: $breakpoint-tablet ) {
+        font-size: 1.25rem;
+        
+    };
+    
+    @media (min-width: $breakpoint-desktop ) {
+        & * + * {
+            margin-left: 0.5vw;
+        }
+        margin-bottom: 3rem;
+        & > *:hover {
+            color: lighten($color-primary, 20%);
+        }
+    };
+}

@@ -177,3 +177,9 @@
     
     }
 }
+
+.navLogo {
+    & * {
+        fill: black !important;
+    }
+}
