@@ -1,33 +1,43 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import PageContentColumns from '../components/PageContentColumns';
 import BlogPreviewItem from '../components/BlogPreviewItem';
 import { Link, useRouteMatch } from 'react-router-dom';
+import { CacheCtx } from '../contexts/CacheCtx';
+import { WP_REST_API_Attachment, WP_REST_API_Post } from 'wp-types';
+import useCache from '../hooks/useCache';
+import styles from 'src/styles/blog.module.scss';
 
 interface Props {};
 
 function RecipesPage(props: Props) {
     const {} = props;
-    const [wpData, setWpData] = useState<any>(null);
-
+    const [isLoading, setIsLoading] = useState<boolean>(true);
     const { url } = useRouteMatch();
 
-    useEffect(() => {
-        fetch("http://www.react-test.dev.cc/wp-json/wp/v2/recipes")
-            .then( res => res.json())
-            .then(formattedRes => {setWpData(formattedRes);})
-            .catch(err => console.log(err));
-    }, [])
+    const cacheCtx = useContext(CacheCtx);
+
+    const { recipesCache, mediaCache} = cacheCtx.cacheItems;
+    const { rootDataQueries, mediaDataQueries, rootDataFetchFields, mediaDataFetchFields,} = cacheCtx.defaultQueries;
+
+
+    const [ wpAllData, isPostCacheLoading ] = useCache<WP_REST_API_Post>({url: recipesCache.url, watchFields: rootDataQueries, cacheFields: rootDataFetchFields, cacheKey: recipesCache.accessor});
+    const [ wpMediaData, isMediaCacheLoading ] = useCache<WP_REST_API_Attachment>({url: mediaCache.url, watchFields: mediaDataQueries, cacheFields: mediaDataFetchFields, cacheKey: mediaCache.accessor});
 
     const blogPosts = useMemo(() => {
-        if(!wpData) return;
-        const postArry = Array.from(wpData);
-        return postArry.map((post: any) => {
-            const { title, excerpt, modified, id, featured_media, slug}: {title: {rendered: string}, excerpt: {rendered: string, protected: boolean,}, modified: string, id: number, featured_media: number, slug: string} = post;
-
-            // return <Link to={`${url}/${slug}`}><BlogPreviewItem title={title.rendered} excerpt={excerpt.rendered} meta={[modified]} postUrl={featured_media} key={`recipe_prev_id:${id}`}/></Link>
+        if(!wpAllData || !wpMediaData) return;
+        const blogPostArry = (wpAllData as WP_REST_API_Post[]).map((post: any) => {
+            const { id, featured_media, slug}: ExctractedData = post;
+            const postMediaArry = featured_media === 0 ? [] : (wpMediaData as WP_REST_API_Attachment[]).flatMap((mediaItem: any) => mediaItem.id === featured_media ? [mediaItem] : []);
+            
+            return (
+                <Link to={`${url}/${slug}`} className={styles.previewCardContainer} key={`blog_post_prev_id:${id}`}>
+                    <BlogPreviewItem postMedia={postMediaArry} postData={post}/>
+                </Link>
+            );
         });
-
-    }, [wpData])
+        return blogPostArry;
+    }, [wpAllData, wpMediaData]);
+    
     return (
         <>
             <PageContentColumns title={"recipes"}>
