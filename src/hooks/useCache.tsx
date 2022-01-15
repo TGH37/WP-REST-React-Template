@@ -118,9 +118,7 @@ function useCache<CacheType extends WPTH_Cached_WP_Object>(props: CacheProps) {
             const idxToRemove = cachedValues.findIndex(cacheObj => cacheObj.id === idToRemove);
             cachedValues.splice(idxToRemove);
         });
-        // console.log(url + itemsToRemove)
         const saveData = JSON.stringify(cachedValues);
-        console.log("trimd: " + saveData);
         window.sessionStorage.setItem(cacheKey, saveData);
     };
 

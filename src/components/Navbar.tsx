@@ -45,20 +45,20 @@ function Navbar(props: Props) {
             <div className={`${styles.navLinksContainer} ${isNavExpanded ? styles.showWhenExpanded : styles.hiddenWhenCollapsed}`}>
                 <ul>
                     <li className={styles.listTitle} >RECIPES</li>
-                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/recipes">Beginner Phase (0 - 4 weeks)</NavLink></li>
-                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/">Intermediate Phase (4 - 8 weeks)</NavLink></li>
-                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/">Fat Blaster (8 - 10 weeks)</NavLink></li>
-                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/">Expert (12+ weeks)</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} className={styles.activeLink} end={true} to="/recipes">Beginner Phase (0 - 4 weeks)</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} className={styles.activeLink} end={true} to="/">Intermediate Phase (4 - 8 weeks)</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} className={styles.activeLink} end={true} to="/">Fat Blaster (8 - 10 weeks)</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} className={styles.activeLink} end={true} to="/">Expert (12+ weeks)</NavLink></li>
                 </ul>
 
                 <ul>
-                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/">Home</NavLink></li>
-                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/about">About Me</NavLink></li>
-                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/resources">Resources</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} className={styles.activeLink} end={true} to="/">Home</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} className={styles.activeLink} end={true} to="/about">About Me</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} className={styles.activeLink} end={true} to="/resources">Resources</NavLink></li>
                 </ul>
                 <ul>
-                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/blog">Blog</NavLink></li>
-                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/contact">Get in Touch</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} className={styles.activeLink} end={true} to="/blog">Blog</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} className={styles.activeLink} end={true} to="/contact">Get in Touch</NavLink></li>
 
                 </ul>
                 <SearchBar />

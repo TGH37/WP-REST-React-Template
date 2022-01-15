@@ -2,18 +2,19 @@ import React, { useContext, useEffect, useMemo, useState } from 'react';
 import styles from 'src/styles/blog.module.scss';
 import PageContentColumns from '../components/PageContentColumns';
 import BlogPreviewItem from '../components/BlogPreviewItem';
-import { useRouteMatch } from 'react-router';
+import { Outlet, Route, Routes, useMatch } from 'react-router';
 import { Link } from 'react-router-dom';
 import { WP_REST_API_Post, WP_REST_API_Attachment } from 'wp-types';
 import useCache from '../hooks/useCache';
 import {CacheCtx} from '../contexts/CacheCtx';
+import SingleRecipePage from './singleRecipePage';
 
 interface Props {};
 
 function BlogPage(props: Props) {
     const {} = props;
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const { url } = useRouteMatch();
+    // const { url } = useMatch();
     const cacheCtx = useContext(CacheCtx);
 
     const { blogCache, mediaCache} = cacheCtx.cacheItems;
@@ -24,7 +25,7 @@ function BlogPage(props: Props) {
     
     useEffect(() => {
         setIsLoading(isPostCacheLoading as boolean && isMediaCacheLoading as boolean);
-    }, []);
+    }, [isPostCacheLoading, isMediaCacheLoading]);
         
     const blogPosts = useMemo(() => {
         if(!wpAllData || !wpMediaData) return;
@@ -33,7 +34,7 @@ function BlogPage(props: Props) {
             const postMediaArry = featured_media === 0 ? [] : (wpMediaData as WP_REST_API_Attachment[]).flatMap((mediaItem: any) => mediaItem.id === featured_media ? [mediaItem] : []);
             
             return (
-                <Link to={`${url}/${slug}`} className={styles.previewCardContainer} key={`blog_post_prev_id:${id}`}>
+                <Link to={`${slug}`} className={styles.previewCardContainer} key={`blog_post_prev_id:${id}`}>
                     <BlogPreviewItem postMedia={postMediaArry} postData={post}/>
                 </Link>
             );
@@ -54,6 +55,7 @@ function BlogPage(props: Props) {
     return (
         <PageContentColumns title={"Blog"}>
             { getRenderedElements() }
+            <Link to="blog-23">Blog 2</Link>
         </PageContentColumns>
     );
 };

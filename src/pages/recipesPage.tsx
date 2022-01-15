@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import PageContentColumns from '../components/PageContentColumns';
 import BlogPreviewItem from '../components/BlogPreviewItem';
-import { Link, useRouteMatch } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { CacheCtx } from '../contexts/CacheCtx';
 import { WP_REST_API_Attachment, WP_REST_API_Post } from 'wp-types';
 import useCache from '../hooks/useCache';
@@ -12,7 +12,6 @@ interface Props {};
 function RecipesPage(props: Props) {
     const {} = props;
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const { url } = useRouteMatch();
 
     const cacheCtx = useContext(CacheCtx);
 
@@ -30,7 +29,7 @@ function RecipesPage(props: Props) {
             const postMediaArry = featured_media === 0 ? [] : (wpMediaData as WP_REST_API_Attachment[]).flatMap((mediaItem: any) => mediaItem.id === featured_media ? [mediaItem] : []);
             
             return (
-                <Link to={`${url}/${slug}`} className={styles.previewCardContainer} key={`blog_post_prev_id:${id}`}>
+                <Link to={`${slug}`} className={styles.previewCardContainer} key={`blog_post_prev_id:${id}`}>
                     <BlogPreviewItem postMedia={postMediaArry} postData={post}/>
                 </Link>
             );
