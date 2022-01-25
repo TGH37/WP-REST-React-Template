@@ -7,7 +7,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: "./src/index.html",
       minify: {
-        // removeComments: true,
+        removeComments: true,
       }
     }),
   ],
@@ -22,11 +22,6 @@ module.exports = {
         exclude: /node_modules/,
         loader: require.resolve("babel-loader"),
       },
-      // {
-      //   test: /\.tsx|ts?$/,
-      //   use: ['babel-loader','ts-loader'],
-      //   exclude: /node_modules/,
-      // },
       {
         test: /\.png|jpg|gif$/,
         use: {
@@ -40,7 +35,15 @@ module.exports = {
      
       {
         test: /\.svg$/,
-        use: ["@svgr/webpack","file-loader"],
+        use: ["@svgr/webpack", 
+          {
+            loader: "file-loader",
+            options: {
+              name: "[name].[hash].[ext]",
+              outputPath: "svgs"
+            }
+          }
+        ],
       },
       {
         test: /\.html$/,
