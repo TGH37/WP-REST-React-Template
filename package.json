@@ -1,16 +1,17 @@
 {
-  "name": "keto-blog",
+  "name": "wp_rest_api_react_blog_app",
   "version": "1.0.0",
-  "description": "",
+  "description": "A blog created with React.js that fetches data from a WordpPress servcer via the WordPress REST API",
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --hot --open --mode development",
     "dev": "webpack --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "test": "jest --verbose"
+    "test": "jest --verbose",
+    "heroku-build": "npm install && npm run build"
   },
   "keywords": [],
-  "author": "",
+  "author": "Tom Hayton",
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.15.5",
