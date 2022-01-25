@@ -15,7 +15,13 @@ p {
 a {
     text-decoration: none;
     color: $color-primary;
+    transition: color 0.25s;
+    transition: font-size 0.35s;
+    &:hover, &:focus {
+        color: $color-secondary;
+    };
 }
+
 
 li {
     list-style: none;

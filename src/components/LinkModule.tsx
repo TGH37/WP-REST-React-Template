@@ -1,19 +1,11 @@
-import React, { ReactElement, RefObject, useEffect, useMemo, useRef, useState } from 'react';
+import React, { ReactElement, RefObject, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import styles from 'src/styles/mainContent.module.scss';
-
-interface stdModule {
-    title: string
-    href?: string
-    content: ReactElement
-    isExpandable: boolean
-    exerpt?: string
-}
+import { WP_REST_API_Post } from 'wp-types';
 
 interface propsOptions {
     shouldDisplayDivider?: boolean
-
 }
 
 const defaultOptions: propsOptions = {
@@ -21,13 +13,14 @@ const defaultOptions: propsOptions = {
 }
 
 interface Props {
-    data: stdModule
+    data: Partial<WP_REST_API_Post>
+    isExpandable?: boolean
     options?: propsOptions
 };
 
 const LinkModule = (propsIn: Props) => {
-    const { data } = propsIn;
-    const { title, href, content: rawContent, isExpandable, } = data;
+    const { data, isExpandable = true } = propsIn;
+    const { title, slug, content: rawContent, excerpt} = data;
     const options: propsOptions = {...defaultOptions, ...propsIn?.options};
     
     const exerptRef = useRef<HTMLParagraphElement>(null);
@@ -40,8 +33,16 @@ const LinkModule = (propsIn: Props) => {
 
     let exRef = exerptRef.current, conRef = contentRef.current, modRef = moduleContainerRef.current;
     
-    const exerpt: ReactElement = isExpandable ? <p ref={exerptRef} className={`${styles.excerpt} ${isExpanded ? styles.hidden : ""}`}>{data?.exerpt ? data.exerpt : "Exerpt"}...</p> : <></>;
-    const content: ReactElement = <div ref={contentRef} className={styles.subModuleContent}>{rawContent}</div>;
+    const exerpt: ReactElement = isExpandable ? 
+    <p  ref={exerptRef}
+        className={`${styles.excerpt} ${isExpanded ? styles.hidden : ""}`}
+        dangerouslySetInnerHTML={{__html: excerpt ? excerpt.rendered : "Exerpt"}}
+    /> : <></>;
+    
+    const content: ReactElement = <div  ref={contentRef} 
+                                        className={styles.subModuleContent} 
+                                        dangerouslySetInnerHTML={{__html: rawContent ? rawContent.rendered : ""}}
+                                    />;
 
     // Function Declarations
     const sanitizeContent = (contentRef: RefObject<HTMLElement>) => {
@@ -117,7 +118,7 @@ const LinkModule = (propsIn: Props) => {
 
     return (
         <li className={`${styles.subModuleContainer}`} style={{borderTop: options.shouldDisplayDivider ? "1px solid black" : ""}} >
-            <h2 className={`${styles.subModuleTitle} ${href ? "" : styles.plainTitle}`}>{href ? <Link to={href}>{title}</Link> : title}</h2>
+            <h2 className={`${styles.subModuleTitle} ${slug ? "" : styles.plainTitle}`}>{slug ? <Link to={`blog/${slug}`}>{title?.rendered}</Link> : title}</h2>
             <div className={`${styles.subModuleContentContainer}` } ref={moduleContainerRef} >
                 {exerpt}
                 {content}

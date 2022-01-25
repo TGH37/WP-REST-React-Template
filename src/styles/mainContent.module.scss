@@ -14,8 +14,6 @@ $module-vertical-padding: 5vh;
         margin-bottom: 0;
 
     };
-    
-    
 }
 
 .moduleTitle,
@@ -34,4 +32,17 @@ $module-vertical-padding: 5vh;
 
 .moduleContent {
    @extend .contentSection;
+   & > a {
+    margin-left: 1vw;
+    font-size: 1.25rem;
+    font-weight: bold;
+    &:hover, &:focus {
+        font-size: 1.5rem;
+    };
+    ;}
+    
+    & * p a {
+        // font-weight: bold;
+        text-decoration: underline !important;
+    }
 }
