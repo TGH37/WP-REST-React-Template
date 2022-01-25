@@ -6,6 +6,7 @@ module.exports = {
   entry: "./src/index.tsx",
   output: {
     filename: "main.[contenthash].js",
+    publicPath: '/',
     path: path.resolve(__dirname, "dist"),
   },
   // devtool: "source-map",
@@ -29,11 +30,6 @@ module.exports = {
         exclude: /node_modules/,
         loader: require.resolve("babel-loader"),
       },
-      // {
-      //   test: /\.tsx|ts?$/,
-      //   use: ['babel-loader', 'ts-loader'],
-      //   exclude: /node_modules/,
-      // },
       {
         test: /\.s[ac]ss$/,
         use: ["style-loader", {loader: "css-loader", options: {modules: {localIdentName: "[name]__[local]"}}}, "sass-loader"],
