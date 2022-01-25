@@ -48,10 +48,63 @@ type rootDataProbeResponse = {id: number, modified: string, featured_media: numb
 
 interface WPTH_Cached_WP_Object {
     id: number
-    modified: WP_REST_API_Date_Time
+    modified?: WP_REST_API_Date_Time
 };
 
 interface CacheProbeResult {
     id: number
     isStillValid: boolean
+};
+
+type WP_Post_Endpoint = `${WP_Post_Type_Name}`;
+type WP_Tax_Endpoint = `${WP_Taxonomy_Name}`;
+
+type WP_Endpoint = WP_Post_Endpoint | WP_Tax_Endpoint;
+type WPFetchResponseType = WP_REST_API_Post | WP_REST_API_Attachment | WP_REST_API_Category;
+
+interface CacheObject<Type> {
+    cachedData: Partial<Type>[]
+    isLoading: boolean 
+    isUpdateRequired: boolean 
+    runCacheUpdate: Function 
+    getUpdateRequirement: Function 
+    readCacheDataAndParse: Function
+}
+
+interface WPProbeResponse {
+    id: number,
+    modified: string,
+    featured_media?: number
+}
+
+interface UpdateRequiredObj {
+    success: boolean
+    isUpdateRequired: boolean
+}
+
+interface FetchObject<Type> {
+    runFetch: Function
+    isLoading: boolean
+    data: Partial<Type>[]
+}
+
+interface ComposedRestSectionObject {
+    title: string
+    content: JSX.Element | JSX.Element[] | null
+};
+
+interface RestSectionTitleMatch {
+    idx: number,
+    title: string
+};
+
+interface FetchOptions {
+    fields: string[]
+    probeFields: string[]
+    appendFields: string[]
+    slugs: string[]
+    sticky: boolean
+    shouldCache: boolean
+    ids: string[]
+    requestOptions: Partial<RequestInit>
 };
