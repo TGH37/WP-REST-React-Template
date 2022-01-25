@@ -25,6 +25,7 @@ function Navbar(props: Props) {
         const staticAttrs = {className: `${styles.navContainer} ${isNavExpanded ? styles.navExpanded : ""}`}
         return {...staticAttrs, ...dynamicAttrs}
       };
+      const getStyle = (isActive: boolean) => isActive ? styles.activeLink : "";
 
 
     return (
@@ -44,21 +45,20 @@ function Navbar(props: Props) {
             </div>
             <div className={`${styles.navLinksContainer} ${isNavExpanded ? styles.showWhenExpanded : styles.hiddenWhenCollapsed}`}>
                 <ul>
-                    <li className={styles.listTitle} >RECIPES</li>
-                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/recipes">Beginner Phase (0 - 4 weeks)</NavLink></li>
-                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/">Intermediate Phase (4 - 8 weeks)</NavLink></li>
-                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/">Fat Blaster (8 - 10 weeks)</NavLink></li>
-                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/">Expert (12+ weeks)</NavLink></li>
+                    <li className={styles.listTitle} ><NavLink onClick={menuIconClickHandler} className={({isActive}) => (isActive ? styles.activeLink : "")} to="recipes">RECIPES</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} className={({isActive}) => getStyle(isActive)} to="recipes?category=beginner">Beginner Phase (0 - 4 weeks)</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} className={({isActive}) => getStyle(isActive)} to="recipes?category=intermediate">Intermediate Phase (4 - 8 weeks)</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} className={({isActive}) => getStyle(isActive)} to="recipes?category=expert">Expert (8+ weeks)</NavLink></li>
                 </ul>
 
                 <ul>
-                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/">Home</NavLink></li>
-                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/about">About Me</NavLink></li>
-                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/resources">Resources</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} className={({isActive}) => getStyle(isActive)} to="/">Home</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} className={({isActive}) => getStyle(isActive)} to="/about">About</NavLink></li>
+                    {/* <li><NavLink onClick={menuIconClickHandler} className={({isActive}) => getStyle(isActive)} to="/resources">Resources</NavLink></li> */}
                 </ul>
                 <ul>
-                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/blog">Blog</NavLink></li>
-                    <li><NavLink onClick={menuIconClickHandler} activeClassName={styles.activeLink} exact={true} to="/contact">Get in Touch</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} className={({isActive}) => getStyle(isActive)} to="/blog">Blog</NavLink></li>
+                    <li><NavLink onClick={menuIconClickHandler} className={({isActive}) => getStyle(isActive)} to="/contact">Get in Touch</NavLink></li>
 
                 </ul>
                 <SearchBar />
