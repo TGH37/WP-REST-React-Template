@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import styles from '../styles/hero.module.scss';
+import styles from '../styles/Hero.module.scss';
 import {BreakpointContext} from '../contexts/MediaBreakpointCtx';
 
 
