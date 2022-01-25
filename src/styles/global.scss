@@ -18,7 +18,7 @@ a {
     transition: color 0.25s;
     transition: font-size 0.35s;
     &:hover, &:focus {
-        color: $color-secondary;
+        // color: $color-secondary;
     };
 }
 

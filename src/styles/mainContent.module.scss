@@ -8,6 +8,12 @@ $module-vertical-padding: 5vh;
 .columnisedSectionContainer {
     display: flex;
     flex-direction: column;
+
+    &:first-of-type {
+        & .contentSection {
+            border-top: none;
+        }
+    }
     
     @media (min-width: $breakpoint-tablet ) {
         flex-direction: row;
@@ -40,9 +46,23 @@ $module-vertical-padding: 5vh;
         font-size: 1.5rem;
     };
     ;}
+
+    & li:not(.subModuleContainer)  {
+        list-style: circle;
+        margin-bottom: .75rem;
+    };
     
     & * p a {
         // font-weight: bold;
         text-decoration: underline !important;
+    }
+
+    & figure {
+        margin: 0;
+
+        & img {
+            width: 100%;
+            height: auto;
+        }
     }
 }

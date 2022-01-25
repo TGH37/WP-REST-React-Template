@@ -12,7 +12,7 @@
     &:hover {
         cursor: pointer;
         box-shadow: 3px 2px darkgray;
-        font-size: 4vh;
+        font-size: 1.2rem;
         border: 1px solid black;
         border-radius: 1rem;
 
@@ -59,7 +59,7 @@
     transition: min-height 0.5s;
     
     & > img {
-        object-fit: contain;
+        object-fit: cover;
         width: inherit;
         height: inherit;
         max-height: inherit;
