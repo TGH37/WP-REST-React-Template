@@ -12,7 +12,7 @@ function ColumnisedSection(props: Props) {
     return (
         <section className={styles.columnisedSectionContainer}>
             <div className={styles.moduleTitleContainer}>
-                <p>{title}</p>
+                <p dangerouslySetInnerHTML={{__html: title}} />
             </div>
             <div className={styles.moduleContent}>
                 {render()}
