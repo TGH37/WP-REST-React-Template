@@ -29,7 +29,7 @@ function useWPFetcher<FetchType extends WPFetchResponseType>(props: Props) {
     ]);
 
     const defaultQueryMap: Map<WP_Endpoint, string[]> = new Map([
-        ["post",["id", "title", "excerpt", "modified", "featured_media", "slug", ]],
+        ["post",["id", "title", "excerpt", "modified", "featured_media", "slug", "categories"]],
         ["page",["id", "title", "excerpt", "modified", "featured_media", "slug", "content"]],
         ["attachment",["id", "media_details", "alt_text", "modified", ]],
         ["category",["id", "name",]],
@@ -75,7 +75,6 @@ function useWPFetcher<FetchType extends WPFetchResponseType>(props: Props) {
             if(probeRes === null) return
             const updateRequirement = cacheObject.getUpdateRequirement(probeRes) as UpdateRequiredObj;
             if(!updateRequirement.isUpdateRequired) {
-                console.log(cacheObject.cachedData)
                 setData(cacheObject.cachedData as Partial<FetchType>[]);
                 setIsLoading(false);
                 return;

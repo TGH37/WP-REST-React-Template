@@ -108,3 +108,7 @@ interface FetchOptions {
     ids: string[]
     requestOptions: Partial<RequestInit>
 };
+
+type RecipeQueryParamType = "all" | "beginner" | "intermediate" | "expert";
+
+type imgData = {src: string, alt: string};
