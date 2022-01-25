@@ -22,6 +22,7 @@ function Homepage(props: Props) {
             appendFields: ['content'],
             shouldCache: false,
             sticky: true,
+            slugs: []
         };
         postFetcher(queryOptions);
     }, []);
