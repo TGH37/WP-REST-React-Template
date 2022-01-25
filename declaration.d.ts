@@ -112,3 +112,13 @@ interface FetchOptions {
 type RecipeQueryParamType = "all" | "beginner" | "intermediate" | "expert";
 
 type imgData = {src: string, alt: string};
+
+type FAIconSizePreset = "1x" | "2x" | "3x" | "4x";
+
+type SocialMediaBrandHandle = "github" | "linkedin" //| "facebook" | "instagram" | "twitter" | "youtube";
+
+interface SocialMediaObject {
+    handle: SocialMediaBrandHandle,
+    link: string,
+    icon: IconDefinition
+}

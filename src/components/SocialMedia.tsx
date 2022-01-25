@@ -1,35 +1,30 @@
-/**
- * Author: Tom Hayton
- * Desc: Composition based, reusable social media icons
- */
+import React, { useContext, useMemo } from 'react';
+import styles from 'src/styles/misc.module.scss';
 
- import React from 'react';
- import styles from 'src/styles/misc.module.scss';
-
- import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
- import { faGithub, faLinkedin, faFacebook, faInstagram, faTwitter, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {GlobalCtx} from '../contexts/GlobalCtx';
  
- interface Props {
+interface Props {
+  iconSize?: FAIconSizePreset
+};
 
- }
+function SocialMedia(props: Props) {
+  const { iconSize = "1x" } = props;
 
- function SocialMedia(props: Props) {
-   const links = {
-     facebook: "",
-     instagram: "",
-     twitter: "",
-     youtube: "",
-   };
+  const { socialMediaObjects } = useContext(GlobalCtx);
+  const socialIcons = useMemo(() => {
+    return socialMediaObjects.map(socialMediaObj => {
+      const { handle, link, icon } = socialMediaObj;
+      return <a href={link} target="_blank" key={handle}><FontAwesomeIcon icon={icon} cursor="pointer" size={iconSize}/></a>
+    })
+  }, [socialMediaObjects])
 
   return (
     <div className={`${styles.socMed} mob-visible`}>
-      <a href={links.youtube} target="_blank"><FontAwesomeIcon icon={faYoutube} cursor="pointer" size="1x"/></a>
-      <a href={links.instagram} target="_blank"><FontAwesomeIcon icon={faInstagram} cursor="pointer" size="1x"/></a>
-      <a href={links.twitter} target="_blank"><FontAwesomeIcon icon={faTwitter} cursor="pointer" size="1x"/></a>
-      <a href={links.facebook} target="_blank"><FontAwesomeIcon icon={faFacebook} cursor="pointer" size="1x"/></a>
+      {socialIcons}
     </div>
-   );
- };
- 
- export default SocialMedia;
+  );
+};
+
+export default SocialMedia;
  

@@ -24,7 +24,6 @@ function WPParsedContent(props: Props) {
         return (parsedContent instanceof Array) ? parsedContent : [parsedContent];
     };
 
-        
     // NOTE: Divide parsed content into an array of sections, requires each desired section to be wrapped in a <div> tag with className='rest-section' in WordPress
     useEffect(() => {
         const workingParsedContent = castParsedContentToArry();
@@ -32,6 +31,7 @@ function WPParsedContent(props: Props) {
         workingParsedContent.map((node) => {
             if(typeof node === 'string') return;
             try {
+                if(!node.props.className) return;
                 if(node.props.className.search('rest-section')) {
                     setRestSections(prev => {
                         const returnArry = Array.from(prev);

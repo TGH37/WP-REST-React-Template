@@ -3,6 +3,10 @@
 @import 'form';
 
 .socMed {
+    display: flex;
+    justify-content: space-around;
+    padding: .5rem 0;
+
     & * + * {
         margin-left: 2vw;
     }
