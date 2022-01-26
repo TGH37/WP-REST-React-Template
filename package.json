@@ -4,11 +4,11 @@
   "description": "A blog created with React.js that fetches data from a WordpPress servcer via the WordPress REST API",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --hot --open --mode development",
+    "start": "node server.js",
     "dev": "webpack --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "test": "jest --verbose",
-    "heroku-build": "npm install && npm run build"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install && npm run build"
   },
   "keywords": [],
   "author": "Tom Hayton",
@@ -25,6 +25,7 @@
     "@fortawesome/react-fontawesome": "^0.1.15",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^4.0.0",
+    "express": "^4.17.2",
     "html-react-parser": "^1.4.5",
     "html-webpack-plugin": "^5.3.2",
     "react": "^17.0.2",

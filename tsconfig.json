@@ -17,6 +17,6 @@
     "outDir": "./dist/",
     // "traceResolution": true,
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"],
+  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts", "server.js"],
   "exclude": ["node_modules"]
 }
