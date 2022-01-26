@@ -16,7 +16,7 @@ interface Props {
 function useWPFetcher<FetchType extends WPFetchResponseType>(props: Props) {
     const {
         endpoint,
-        rootUrl = "http://port-keto-bl.wingtipdigital.com/wp-json/wp/v2/",
+        rootUrl = "https://port-keto-bl.wingtipdigital.com/wp-json/wp/v2/",
         cacheObj = null
     } = props;
 
