@@ -62,11 +62,9 @@ function PostArchive(props: Props) {
     const getIfCanShow = (resCategories: number[]) => {
         let canShow = false;
         const matchedCategories = getCategoryNamesFromIds();
-        // console.log(matchedCategories)
         matchedCategories.map(matchedCategory => {
             const canFindCategory = resCategories.includes(matchedCategory.id as number);
             if(canFindCategory) canShow = true;
-            console.log(`resCategories: ${resCategories}, cat name: ${matchedCategory.name}, cat id: ${matchedCategory.id}, ${canFindCategory}`)
         });
         return canShow;
     };
@@ -79,7 +77,6 @@ function PostArchive(props: Props) {
             const { id, featured_media, slug, categories} = post;
             const postMediaArry = featured_media === 0 ? [] : (mediaData as WP_REST_API_Attachment[]).flatMap((mediaItem: any) => mediaItem.id === featured_media ? [mediaItem] : []);
             
-            // console.log(`can show? ${getIfCanShow(categories as number[])}, categories: ${categoryFilterArryProp}, `)
             if( categories !== undefined &&
                 categoryFilterArryProp.length &&
                 !categoryFilterArryProp.includes('all') &&

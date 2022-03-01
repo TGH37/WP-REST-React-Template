@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
+    "client": "webpack-dev-server --mode development --devtool inline-source-map --hot",
     "dev": "webpack --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "test": "jest --verbose",

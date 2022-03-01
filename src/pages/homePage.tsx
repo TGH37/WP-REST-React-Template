@@ -51,10 +51,6 @@ function Homepage(props: Props) {
         return <WPParsedContent data={content} />;
     }, [pageData]);
 
-    useEffect(() => {
-        console.log(pageData)
-    }, [pageData])
-
     return (
         <>
             <Hero />

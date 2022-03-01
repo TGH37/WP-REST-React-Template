@@ -118,7 +118,7 @@ const LinkModule = (propsIn: Props) => {
 
     return (
         <li className={`${styles.subModuleContainer}`} style={{borderTop: options.shouldDisplayDivider ? "1px solid black" : ""}} >
-            <h2 className={`${styles.subModuleTitle} ${slug ? "" : styles.plainTitle}`}>{slug ? <Link to={`blog/${slug}`}>{title?.rendered}</Link> : title}</h2>
+            <h2 className={`${styles.subModuleTitle} ${slug ? "" : styles.plainTitle}`}>{slug ? <Link to={`blog/${slug}`} dangerouslySetInnerHTML={{__html: title ? title.rendered : ""}}></Link> : title}</h2>
             <div className={`${styles.subModuleContentContainer}` } ref={moduleContainerRef} >
                 {exerpt}
                 {content}

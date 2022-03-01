@@ -32,7 +32,7 @@ function BlogPreviewItem(props: Props) {
     return (
         <div className={styles.previewCard} onClick={() => {}}>
             { image() }
-            <h3>{title.rendered}</h3>
+            <h3 dangerouslySetInnerHTML={{__html: title.rendered}}></h3>
             <p dangerouslySetInnerHTML={{__html: excerpt.rendered}}></p>
             <div>{meta.map((data, idx) => <span key={`${title}_meta_${idx}`}>{data}</span>)}</div>
         </div>

@@ -9,7 +9,6 @@ import { faSearch, faCheck } from '@fortawesome/free-solid-svg-icons'
 import BreakpointProvider from './contexts/MediaBreakpointCtx';
 import GlobalProvider from './contexts/GlobalCtx';
 import AboutPage from './pages/aboutPage';
-import ResourcesPage from './pages/resourcesPage';
 import ContactPage from './pages/contactPage';
 import BlogPage from './pages/blogPage';
 import Layout from './components/Layout';
@@ -32,7 +31,6 @@ const App = () => {
                                 <Route path={"/recipes"} element={<RecipesPage />}/>
                                 <Route path={"/recipes/:slug"} element={<SingleRecipePage />}/>
                                 <Route path={"/about"} element={<AboutPage />}/>
-                                <Route path={"/resources"} element={<ResourcesPage />}/>
                                 <Route path={"/blog"} element={<BlogPage />}/>
                                 <Route path={"/blog/:slug"} element={<SingleBlogPostPage />}/>
                                 <Route path={"/contact"} element={<ContactPage />}/>
